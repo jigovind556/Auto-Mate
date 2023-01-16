@@ -88,7 +88,7 @@ var collection;
 const server = http.createServer(app);
 const io = socketio(server);
 
-const PORT = 3000 || process.env.port;
+// const PORT = 3000 || process.env.port;
 
 
 //Set static folder
