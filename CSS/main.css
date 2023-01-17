@@ -9,14 +9,15 @@ body {
     text-align: center;
     justify-content: center;
     place-items: center;
-    overflow: hidden;
+    /* overflow: hidden; */
     font-family: 'Dosis', sans-serif;
 }
 
 .container {
     position: relative;
-    width: 350px;
-    height: 700px;
+    width: 400px;
+    /* height: 700px; */
+
     border-radius: 20px;
     padding: 40px;
     box-sizing: border-box;
@@ -88,3 +89,50 @@ input::placeholder {
     flex-wrap: wrap;
     justify-content: space-between;
   }
+  .fixTime{
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .fixTime .people1{
+    background-color: #DDDDDD;
+    text-align: left;
+    padding: 4px 20px 4px;
+    margin-top: 4px;
+    border-radius: 20px;
+    
+  }
+  .fixTime .people1 input{
+    background: #ecf0f3;
+    /* padding:0px; */
+    /* padding-left: 10px; */
+    /* margin-top: 10px; */
+    margin-bottom: -10px;
+    margin-left: 100px;
+    height: 20px;
+    /* font-size: 14px; */
+    border-radius: 50px;
+    box-shadow: inset 0px 0px 0px #cbced1, inset 0px 0px 0px white;
+    width: 20%;
+    margin: 2px 2px 2px;
+}
+.info{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* flex-wrap: wrap; */
+}
+.info .name{
+  margin-left: 2px;
+  display: flex;
+  width: 120px;
+  align-items: center;
+  justify-content: space-between;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.info .time{
+margin: 2px 15px;
+}
+  
