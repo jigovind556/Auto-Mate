@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-mate</title>
+    <link rel="stylesheet" href="CSS/main.css">
+    <link rel="stylesheet" type="text/css" href="CSS/jquery-clockpicker.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="JavaScript/jquery-clockpicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="person_image"></div>
+            <div id="signinButton"></div>
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <div class="inputs">
+            <input type="select" placeholder="To">
+            <input type="text" placeholder="from">
+        </div>
+        <div class="input-group clockpicker">
+            <h4 class="time">Set time</h4>
+        <input type="text" class="form-control" class="time" value="19:00">
+        <span class="input-group-addon">
+        <span class="glyphicon glyphicon-time"></span>
+        </span>
+        </div>
+    </div>
+   
+<script type="text/javascript">
+$('.clockpicker').clockpicker({
+    placement: 'bottom',
+    align: 'left',
+    donetext: 'Done'
+});
+</script>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+<script src="JavaScript/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200&family=Julius+Sans+One&family=Marcellus+SC&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap'); */
+
+@font-face {
+    font-family: Cubic;
+    src: url('../assets/fonts/cubic.ttf');
+}
+
+@font-face {
+    font-family: 'Lovelo Line Bold';
+    src: url('../assets/fonts/Lovelo_Line_Bold.otf');
+}
+
+@font-face {
+    font-family: 'Lovelo Black';
+    src: url('../assets/fonts/Lovelo_Black.otf');
+}
+
+input {
+  caret-color: red;
+}
+
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #ecf0f3;
+  /* background: #FFD944; */
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  place-items: center;
+  overflow: hidden;
+  font-family: 'Dosis', sans-serif;
+}
+
+.container {
+  position: relative;
+  width: 350px;
+  height: 700px;
+  border-radius: 20px;
+  padding: 40px;
+  box-sizing: border-box;
+  /* background: #ecf0f3; */
+  background: #FDDD80;
+  box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+  /* box-shadow: 14px 14px 20px #ddc04a, -14px -14px 20px rgb(237, 192, 32); */
+}
+
+.brand-logo {
+  height: 100px;
+  width: 100px;
+  background: url("../IMG/logo.jpg");
+  background-size: 100%;
+  margin: auto;
+  border-radius: 50%;
+  box-sizing: border-box;
+  /* box-shadow: 7px 7px 10px #cbced1, -7px -7px 10px white; */
+  box-shadow: 14px 14px 20px #ddc04a, -14px -14px 20px rgb(237, 192, 32);
+}
+
+.brand-title {
+  margin-top: 10px;
+  font-weight: 900;
+  font-size: 1.8rem;
+  color: #5D8233;
+  letter-spacing: 1px;
+  font-family: 'Lovelo Black';
+}
+
+.brand-title .auto{
+    margin-top: 10px;
+    font-weight: 900;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    color: #FFB44A;
+    
+}
+
+.brand-title .hiphen{
+    margin-top: 10px;
+    font-weight: 900;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    color: black;
+}
+
+.inputs {
+  text-align: left;
+  margin-top: 30px;
+}
+
+label, input, button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+label {
+  margin-bottom: 4px;
+}
+
+label:nth-of-type(2) {
+  margin-top: 12px;
+}
+
+input::placeholder {
+  color: gray;
+}
+
+input {
+  background: #ecf0f3;
+  padding: 10px;
+  padding-left: 20px;
+  height: 50px;
+  font-size: 14px;
+  border-radius: 50px;
+  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+}
+
+button{
+  color: white;
+  margin-top: 20px;
+  
+  background: #357C3C;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 900;
+  /* box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white; */
+  box-shadow: 14px 14px 20px #d1b95a, -14px -14px 20px rgb(218, 190, 89);
+  transition: 0.5s;
+}
+#register_button{
+  color: white;
+  margin-top: 20px;
+  
+  background: #357C3C;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 900;
+  /* box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white; */
+  box-shadow: 14px 14px 20px #d1b95a, -14px -14px 20px rgb(218, 190, 89);
+  transition: 0.5s;
+
+}
+
+#register_button,button:hover {
+  box-shadow: none;
+}
+
+/* a {
+  position: absolute;
+  font-size: 8px;
+  bottom: 4px;
+  right: 4px;
+  text-decoration: none;
+  color: black;
+  background: yellow;
+  border-radius: 10px;
+  padding: 2px;
+} */
+
+a, .anchorLike{
+    width: 100%;
+    display: flex;
+    font-size: 12px; 
+    color: black; 
+    /* padding-top: 30px;  */
+    flex-direction: row;
+    align-items: center;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+
+.register{
+  margin-top: 20px;
+  font-size: 1rem;
+  font-weight: 800;
+ } 
+ 
+
+h1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
