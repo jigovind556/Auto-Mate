@@ -112,7 +112,7 @@ io.on('connection', socket =>{
             let result = await collection.findOne({"room_name" : room});
 
             if(!result){
-                await collection.insertOne({"room_name" : room , messages : []});
+                await collection.insertOne({"room_name" : room , messages : [] , username: username});
             }
 
             const user = userJoin(socket.id, username, room);
