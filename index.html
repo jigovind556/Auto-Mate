@@ -19,47 +19,48 @@
             <i class="fa-solid fa-bars"></i>
         </div>
         <div class="inputs">
-            <input type="select" placeholder="To">
-            <input type="text" placeholder="from">
+            <input type="text" id="To" placeholder="To" onchange="check_mates()">
+            <input type="text" id="From" placeholder="from" onchange="check_mates()">
         </div>
         <div class="input-group clockpicker">
             <h4 class="time">Set time</h4>
-        <input type="text" class="form-control" class="time" value="19:00">
+        <input type="time" id="Time" class="form-control" class="time" onchange="check_mates()" value="19:00">
         <span class="input-group-addon">
         <span class="glyphicon glyphicon-time"></span>
         </span>
-        </div> 
         
-            <div class="fixTime" >
-                <div class="people1">
+        </div> 
+        <div id="Submit_buttons"></div>
+            <div class="fixTime" id="Matebox" >
+                <!-- <div class="people1">
                     <div class="info"> 
                         <div class="name"><h4>Ayush Singh</h4></div>
                         <div class="time"><h4>00:00</h4></div>
                         <input type="checkbox" > 
 
                     </div>
-                </div>
-                <div class="people1">
+                </div> -->
+                <!-- <div class="people1">
                     <div class="info">
                         <div class="name"><h4>Govind Ji</h4></div>
                         <div class="time"><h4>00:00</h4></div>
                         <input type="checkbox" > 
                     </div>
-                </div>
-                <div class="people1">
+                </div> -->
+                <!-- <div class="people1">
                     <div class="info">
                         <div class="name"><h4>Shivam</h4></div>
                         <div class="time"><h4>00:00</h4></div>
                         <input type="checkbox" > 
                     </div>
-                </div>
-                <div class="people1">
+                </div> -->
+                <!-- <div class="people1">
                     <div class="info">
                         <div class="name"><h4>Hema Medaka</h4></div>
                         <div class="time"><h4>00:00</h4></div>
                         <input type="checkbox" > 
                     </div>
-                </div>
+                </div> -->
             </div>
           
     </div>
