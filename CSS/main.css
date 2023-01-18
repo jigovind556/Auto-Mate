@@ -1,0 +1,138 @@
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #ecf0f3;
+    /* background: #FFD944; */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    place-items: center;
+    /* overflow: hidden; */
+    font-family: 'Dosis', sans-serif;
+}
+
+.container {
+    position: relative;
+    width: 400px;
+    /* height: 700px; */
+
+    border-radius: 20px;
+    padding: 40px;
+    box-sizing: border-box;
+    /* background: #ecf0f3; */
+    background: #FDDD80;
+    box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+    /* box-shadow: 14px 14px 20px #ddc04a, -14px -14px 20px rgb(237, 192, 32); */
+}
+
+.header {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+  }
+
+.person_image{
+    height: 40px;
+    width: 40px;
+    background: url("../IMG/logo.jpg");
+    background-size: 100%;
+    left: 15px;
+    top: 15px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    /* box-shadow: 7px 7px 10px #cbced1, -7px -7px 10px white; */
+    /* box-shadow: 14px 14px 20px #ddc04a, -14px -14px 20px rgb(237, 192, 32); */
+}
+
+
+.header i{
+    position: relative;
+    font-size: 20px;
+  }
+
+.inputs {
+    text-align: left;
+    margin-top: 30px;
+}
+
+input{
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+input::placeholder {
+    color: gray;
+  }
+
+  input {
+    background: #ecf0f3;
+    padding: 10px;
+    padding-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    height: 50px;
+    font-size: 14px;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+  }
+
+  .time{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .fixTime{
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .fixTime .people1{
+    background-color: #DDDDDD;
+    text-align: left;
+    padding: 4px 20px 4px;
+    margin-top: 4px;
+    border-radius: 20px;
+    
+  }
+  .fixTime .people1 input{
+    background: #ecf0f3;
+    /* padding:0px; */
+    /* padding-left: 10px; */
+    /* margin-top: 10px; */
+    margin-bottom: -10px;
+    margin-left: 100px;
+    height: 20px;
+    /* font-size: 14px; */
+    border-radius: 50px;
+    box-shadow: inset 0px 0px 0px #cbced1, inset 0px 0px 0px white;
+    width: 20%;
+    margin: 2px 2px 2px;
+}
+.info{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* flex-wrap: wrap; */
+}
+.info .name{
+  margin-left: 2px;
+  display: flex;
+  width: 120px;
+  align-items: center;
+  justify-content: space-between;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.info .time{
+margin: 2px 15px;
+}
+  
