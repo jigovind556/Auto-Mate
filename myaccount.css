@@ -1,0 +1,61 @@
+.data{
+    padding-left: 0px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color:lightcyan;
+    fill-opacity: 0.5;
+}
+a:link{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  
+}
+#heading{
+    
+}
+.container{
+    background-color: #b1f2ff;
+}
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200&family=Julius+Sans+One&family=Marcellus+SC&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+.header{
+    font-size:larger;
+    font-family:'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+label{
+    font-family:Verdana, Geneva, Tahoma, sans-serif; 
+    box-sizing:border-box;
+    box-shadow: black;
+}
+p{
+    font-size: larger;
+    font-family:cursive;
+    border: 5px;
+    border-color: aqua;
+}
+button {
+    font-family: 'Times New Roman', Times, serif;
+    border-color:#99ccff;
+    color:white;
+    margin-top: 20px;
+    background: #000099;
+    height: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: white;
+    /* box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white; */
+    /*box-shadow: 14px 14px 20px #d15a5a, -14px -14px 20px rgb(218, 89, 209);*/
+    box-shadow:3px 3px 3px lightcyan,-6px -6px 6px lightcyan;
+    transition: 0.5s;
+}
+
+button:hover {
+    box-shadow: none;
+}
+
+.edit{
+    display: flex;
+    padding-left: 60%;
+}
+hr{
+    border-top: 1px dotted white;
+}
