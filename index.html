@@ -13,11 +13,22 @@
 </head>
 <body>
     <div class="container">
-        <div class="header">
+        <!-- <div class="header">
             <div class="person_image"></div>
-            <div id="signinButton"></div>
-            <i class="fa-solid fa-bars"></i>
-        </div>
+             <div id="signinButton"></div>
+            <i class="fa-solid fa-bars"></i> 
+        </div>  -->
+        <section id="header">
+            <ul id="logo">
+              <div class="person_image"></div>
+              <div class="brand-title"> <span class="auto">Auto</span> <span class="hiphen">-</span> Mate</div>
+            </ul>
+            <ul id="navbar">
+                <li><a href="myaccount.html"><i class="fa-solid fa-user"></i></a></li>
+                <li><div id="signinButton"></div></li>
+            </ul>
+        </section>
+        
         <div class="inputs">
             <input type="text" id="To" placeholder="To" onchange="check_mates()">
             <input type="text" id="From" placeholder="from" onchange="check_mates()">
@@ -36,7 +47,7 @@
                     <div class="info"> 
                         <div class="name"><h4>Ayush Singh</h4></div>
                         <div class="time"><h4>00:00</h4></div>
-                        <input type="checkbox" > 
+                        <i class="fa-solid fa-users"> 1</i>
 
                     </div>
                 </div> -->

@@ -32,10 +32,10 @@ socket.on("receive_message", (message) => {
     console.log(message[i].name);
     mate.innerHTML += `
     <div class="people1" value="`+message[i].chatRoom_id+`" onclick="join_chatgroup('`+message[i].chatRoom_id+`')">
-      <div class="info"> 
-          <div class="name"><h4>`+message[i].name+`</h4></div>
-          <div class="time"><h4>`+message[i].travel_time+`</h4></div>
-          <input type="checkbox" > 
+    <div class="info"> 
+        <div class="name"><h4>`+message[i].name+`</h4></div>
+        <div class="time"><h4>`+message[i].travel_time+`</h4></div>
+        <i class="fa-solid fa-users"> `+message[i].No_of_person+`</i> 
 
         </div>
     </div>`;
