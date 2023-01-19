@@ -1,7 +1,9 @@
 const chatForm = document.getElementById('chat-form')
 const chatMessage = document.getElementById('chat')
 const userList = document.getElementById('user_list')
-
+const Server = "http://127.0.0.1:3001";
+const Server2 = Server + "/chat";
+var socket = io(Server);
 
 //Get User name and from URL
 const {username , room} = Qs.parse(location.search, {
@@ -21,7 +23,7 @@ function time(message){
 
 
 
-const socket = io();
+// const socket = io();
 
 // Join Chat room
 socket.emit('joinRoom' , {username, room})

@@ -31,7 +31,7 @@ socket.on("receive_message", (message) => {
   for (var i = 0; i < message.length; i++) {
     console.log(message[i].name);
     mate.innerHTML += `
-    <div class="people1" onclick="join_chatgroup()">
+    <div class="people1" value="`+message[i].chatRoom_id+`" onclick="join_chatgroup('`+message[i].chatRoom_id+`')">
       <div class="info"> 
           <div class="name"><h4>`+message[i].name+`</h4></div>
           <div class="time"><h4>`+message[i].travel_time+`</h4></div>
@@ -103,6 +103,7 @@ function submitData() {
     From: document.getElementById("From").value,
     Date: date,
     Time: document.getElementById("Time").value,
+    chatid:Date.now()+Math.floor(Math.random() * 100)
   };
   if (data.To != "" && data.From != "") {
     socket.emit("submit_new_data", data);
@@ -111,6 +112,9 @@ function submitData() {
 
 
 
-function join_chatgroup(){
-
+function join_chatgroup(chatid){
+  var form=document.getElementById("chatForm");
+  form.username.value=User.id;
+  form.room.value=chatid;
+  form.submit();
 }

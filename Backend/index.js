@@ -193,8 +193,10 @@ io.on('connection', socket =>{
 
   socket.on("check_mate", async ({ To, From, Date, Time }) => {
     console.log(To, From, Time);
-    db.query(`select name, travel_time from travel t,user u 
-    where t.Email=u.Email and dest=? and jstart=? and 
+    db.query(`select name, travel_time ,cr.chatRoom_id ,cr.No_of_person from travel t,user u ,chatgroup cg ,chatroom cr
+          where t.Email=u.Email and t.Email=cg.Email and cg.chatRoom_id=cr.chatRoom_id and 
+          t.travel_date=cr.date and t.travel_time=cr.MeanTime
+           and dest=? and jstart=? and
           travel_date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
               [To, From, Date, Time, Time], (err, result) => {
             if (err) {
@@ -207,9 +209,11 @@ io.on('connection', socket =>{
           });
   });
 
-  socket.on("submit_new_data", async ({ Email, To, Date, From, Time }) => {
+  socket.on("submit_new_data", async ({ Email, To, Date, From, Time ,chatid}) => {
     try {
-      var chatid=( Date()).getTime()+Math.floor(Math.random() * 100);
+      
+      console.log(chatid);
+      // var chatid="1245624";
       db.query(`
       Insert into travel (Email,dest,jstart,travel_date,travel_time) values
       (?,?,?,?,?);
@@ -222,10 +226,12 @@ io.on('connection', socket =>{
         } else {
           console.log(result);
 
-          db.query(`select name, travel_time from travel t,user u 
-          where t.Email=u.Email and dest=? and jstart=? and 
-                travel_date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
-                    [To, From, Date, Time, Time], (err, result) => {
+          db.query(`select name, travel_time ,cr.chatRoom_id ,cr.No_of_person from travel t,user u ,chatgroup cg ,chatroom cr
+          where t.Email=u.Email and t.Email=cg.Email and cg.chatRoom_id=cr.chatRoom_id and 
+          t.travel_date=cr.date and t.travel_time=cr.MeanTime
+           and dest=? and jstart=? and
+          travel_date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
+              [To, From, Date, Time, Time], (err, result) => {
             if (err) {
               console.log(err.sqlMessage);
               socket.emit("error", err.sqlMessage);
