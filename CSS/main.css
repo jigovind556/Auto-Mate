@@ -98,6 +98,7 @@ input::placeholder {
     background-color: white;
     border-radius: 10px;
     padding: 20px;
+    min-height: 150px;
   }
   .fixTime .people1{
     background-color: #DDDDDD;
