@@ -94,10 +94,15 @@ const server = http.createServer(app);
 // const io = socketio(server);
 var io = require("socket.io")(server, {
   cors: {
-    origin: ["http://127.0.0.1:5501","https://jigovind556.github.io/Auto-Mate", "http://127.0.0.1:3001"],
+    origin: ["http://127.0.0.1:5501","https://jigovind556.github.io", "http://127.0.0.1:3001"],
   },
 });
-
+// const io = require("socket.io")(server, {
+//   allowRequest: (req, callback) => {
+//     const noOriginHeader = req.headers.origin === undefined;
+//     callback(null, noOriginHeader);
+//   }
+// });
 // const PORT = 3000 || process.env.port;
 
 //Set static folder

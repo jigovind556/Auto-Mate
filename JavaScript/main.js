@@ -110,7 +110,7 @@ function submitData() {
     Time: document.getElementById("Time").value,
     chatid:Date.now()+Math.floor(Math.random() * 100)
   };
-  if (data.To != "" && data.From != "") {
+  if (data.To != "" && data.From != "" && data.To != data.From) {
     socket.emit("submit_new_data", data);
 
   }
