@@ -7,6 +7,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
+const moment = require('moment');
+
 
 const db = mysql.createConnection({
   user: "root",
@@ -129,6 +131,11 @@ io.on('connection', socket =>{
 
       socket.join(user.room);
 
+      //Finding previous history
+      collection.findOne({"room_name" : room}).then(msg =>{
+        socket.emit('output-message', formatMessage(user.username, msg))
+      })
+
       //Welcome connect user
       socket.emit(
         "message",
@@ -171,11 +178,12 @@ io.on('connection', socket =>{
 
       //Listen for  chatMessage
       socket.on("chatMessage", (msg) => {
+        const time = moment().format("h:mm a");
         collection.updateOne(
           { room_name: socket.activeRoom },
           {
             $push: {
-              message: msg,
+              message: {username,msg ,time},
             },
           }
         );
