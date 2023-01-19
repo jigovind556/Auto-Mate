@@ -34,7 +34,7 @@ socket.on("receive_message", (message) => {
     <div class="info"> 
         <div class="name"><h4>`+message[i].name+`</h4></div>
         <div class="time"><h4>`+message[i].travel_time+`</h4></div>
-        <input type="checkbox" > 
+        <i class="fa-solid fa-users"> `+message[i].No_of_person+`</i> 
 
         </div>
     </div>`;
@@ -101,3 +101,4 @@ function submitData() {
     socket.emit("submit_new_data", data);
   }
 }
+
