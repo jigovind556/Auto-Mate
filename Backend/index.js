@@ -207,11 +207,13 @@ io.on("connection", (socket) => {
 
   socket.on("submit_new_data", async ({ Email, To, Date, From, Time }) => {
     try {
-
+      var chatid=( Date()).getTime()+Math.floor(Math.random() * 100);
       db.query(`
       Insert into travel (Email,dest,jstart,travel_date,travel_time) values
-      (?,?,?,?,?);`,
-          [Email, To, From, Date, Time], (err, result) => {
+      (?,?,?,?,?);
+      insert into chatroom (chatRoom_id,MeanTime,date,NO_of_person) values (?,?,?,"1");
+      insert into chatgroup (Email, chatRoom_id) values (?,?); `,
+          [Email, To, From, Date, Time,chatid,Time,Date,Email,chatid], (err, result) => {
         if (err) {
           console.log(err.sqlMessage);
           socket.emit("error", err.sqlMessage);
@@ -228,6 +230,7 @@ io.on("connection", (socket) => {
             } else {
               console.log(result);
               socket.emit("receive_message", result);
+              socket.emit("createChat",chatid);
             }
           });
 
