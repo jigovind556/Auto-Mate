@@ -7,7 +7,7 @@ var socket = io(Server);
 
 //Get User name and from URL
 const {username , room} = Qs.parse(location.search, {
-    ignoreQueryPrefix : true
+  ignoreQueryPrefix : true,
 })
 
 console.log(username, room);

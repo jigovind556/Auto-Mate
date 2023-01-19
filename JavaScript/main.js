@@ -28,17 +28,12 @@ socket.on("receive_message", (message) => {
   console.log(message);
   var mate = document.getElementById("Matebox");
   mate.innerHTML="";
-  // var time = message[i].travel_time;
-  // var date =
-  //   time.gethour() +
-  //   "/" +
-  //   (date.getMinute() + 1) ;
   for (var i = 0; i < message.length; i++) {
     console.log(message[i].name);
     mate.innerHTML += `
     <div class="people1" value="`+message[i].chatRoom_id+`" onclick="join_chatgroup('`+message[i].chatRoom_id+`')">
     <div class="info"> 
-        <div class="name"><h4>`+message[i].name+`</h4></div>
+        <div class="name"><h4>`+message[i].room_name+`</h4></div>
         <div class="time"><h4>`+message[i].travel_time.slice(0,5)+`</h4></div>
         <i class="fa-solid fa-users"> `+message[i].No_of_person+`</i> 
 

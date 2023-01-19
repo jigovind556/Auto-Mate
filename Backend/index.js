@@ -203,12 +203,10 @@ io.on("connection", (socket) => {
   socket.on("check_mate", async ({ To, From, Date, Time }) => {
     console.log(To, From, Time);
     db.query(
-      `select name, travel_time ,cr.chatRoom_id ,cr.No_of_person from travel t,user u ,chatgroup cg ,chatroom cr
-          where t.Email=u.Email and t.Email=cg.Email and cg.chatRoom_id=cr.chatRoom_id and 
-          t.travel_date=cr.date and t.travel_time=cr.MeanTime
-           and dest=? and jstart=? and
-          travel_date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
-      [To, From, Date, Time, Time],
+      `select room_name , travel_time ,chatRoom_id ,No_of_person from chatroom 
+      where  dest=? and jstart=? and
+      date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
+        [To, From, Date, Time, Time],
       (err, result) => {
         if (err) {
           console.log(err.sqlMessage);
@@ -229,11 +227,12 @@ io.on("connection", (socket) => {
         // var chatid="1245624";
         db.query(
           `
-      Insert into travel (Email,dest,jstart,travel_date,travel_time) values
-      (?,?,?,?,?);
-      insert into chatroom (chatRoom_id,MeanTime,date,NO_of_person) values (?,?,?,"1");
+      
+      insert into chatroom (chatRoom_id,dest,jstart,room_name,travel_time,date,NO_of_person) values (?,?,?,
+        (select name from user where Email=?),
+      ?,?,"1");
       insert into chatgroup (Email, chatRoom_id) values (?,?); `,
-          [Email, To, From, Date, Time, chatid, Time, Date, Email, chatid],
+          [ chatid,To,From,Email, Time, Date, Email, chatid],
           (err, result) => {
             if (err) {
               console.log(err.sqlMessage);
@@ -242,11 +241,9 @@ io.on("connection", (socket) => {
               console.log(result);
 
               db.query(
-                `select name, date_format(travel_time,'%H:%i') ,cr.chatRoom_id ,cr.No_of_person from travel t,user u ,chatgroup cg ,chatroom cr
-          where t.Email=u.Email and t.Email=cg.Email and cg.chatRoom_id=cr.chatRoom_id and 
-          t.travel_date=cr.date and t.travel_time=cr.MeanTime
-           and dest=? and jstart=? and
-          travel_date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
+                `select room_name , travel_time ,chatRoom_id ,No_of_person from chatroom 
+          where  dest=? and jstart=? and
+          date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
                 [To, From, Date, Time, Time],
                 (err, result) => {
                   if (err) {
@@ -282,11 +279,10 @@ io.on("connection", (socket) => {
             socket.emit("createChat", chatid);
           } else {
             db.query(
-              `Insert into travel (Email,dest,jstart,travel_date,travel_time) values
-              (?,?,?,?,?);
+              `
               update chatroom set No_of_person = No_of_person+1 where chatroom_id=?;
               insert into chatgroup (Email, chatRoom_id) values (?,?);`,
-              [Email, To, From, Date, Time, chatid, Email, chatid],
+              [ chatid, Email, chatid],
               (err, result) => {
                 if (err) {
                   console.log(err.sqlMessage);
