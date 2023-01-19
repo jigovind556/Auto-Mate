@@ -28,13 +28,18 @@ socket.on("receive_message", (message) => {
   console.log(message);
   var mate = document.getElementById("Matebox");
   mate.innerHTML="";
+  // var time = message[i].travel_time;
+  // var date =
+  //   time.gethour() +
+  //   "/" +
+  //   (date.getMinute() + 1) ;
   for (var i = 0; i < message.length; i++) {
     console.log(message[i].name);
     mate.innerHTML += `
     <div class="people1" value="`+message[i].chatRoom_id+`" onclick="join_chatgroup('`+message[i].chatRoom_id+`')">
     <div class="info"> 
         <div class="name"><h4>`+message[i].name+`</h4></div>
-        <div class="time"><h4>`+message[i].travel_time+`</h4></div>
+        <div class="time"><h4>`+message[i].travel_time.slice(0,5)+`</h4></div>
         <i class="fa-solid fa-users"> `+message[i].No_of_person+`</i> 
 
         </div>
@@ -58,9 +63,11 @@ function checkCookie() {
   var user = accessCookie("user");
   if (user != "") {
     User = JSON.parse(user);
-    var button = document.getElementById("signinButton");
     var button2 = document.getElementById("Submit_buttons");
-    button.innerHTML = `<button id="logout" onclick="logout()">Logout</button>`;
+    var nav=document.getElementById("navbar");
+    nav.innerHTML+=`<li><a href="myaccount.html"><i class="fa-solid fa-user"></i></a></li>`;
+    var button = document.getElementById("signinButton");
+    button.innerHTML += `<button id="logout" onclick="logout()">Logout</button>`;
     button2.innerHTML += `<button id="submit" onclick="submitData()">submit</button>`;
   } else {
     var button = document.getElementById("signinButton");

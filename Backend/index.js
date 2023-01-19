@@ -242,7 +242,7 @@ io.on("connection", (socket) => {
               console.log(result);
 
               db.query(
-                `select name, travel_time ,cr.chatRoom_id ,cr.No_of_person from travel t,user u ,chatgroup cg ,chatroom cr
+                `select name, date_format(travel_time,'%H:%i') ,cr.chatRoom_id ,cr.No_of_person from travel t,user u ,chatgroup cg ,chatroom cr
           where t.Email=u.Email and t.Email=cg.Email and cg.chatRoom_id=cr.chatRoom_id and 
           t.travel_date=cr.date and t.travel_time=cr.MeanTime
            and dest=? and jstart=? and
