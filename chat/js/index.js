@@ -87,9 +87,13 @@ chatForm.addEventListener('submit' , e =>{
 
     //Get Text Message
     const msg = e.target.elements.msg.value;
+    data={
+      msg:msg,
+      username:username
+    }
 
     //EMit messgae to the server
-    socket.emit('chatMessage', msg);
+    socket.emit('chatMessage', data);
 
     //clear input
     e.target.elements.msg.value = '';

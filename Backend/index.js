@@ -177,7 +177,7 @@ io.on('connection', socket =>{
       });
 
       //Listen for  chatMessage
-      socket.on("chatMessage", (msg) => {
+      socket.on("chatMessage", ({msg,username}) => {
         const time = moment().format("h:mm a");
         collection.updateOne(
           { room_name: socket.activeRoom },
@@ -258,6 +258,20 @@ io.on('connection', socket =>{
     } catch (error) {
       console.log(error);
     }
+  });
+
+  socket.on("joinchat", async ({Email,chatid})=>{
+    
+    db.query(`insert into chatgroup (Email, chatRoom_id) values (?,?);`, [Email,chatid], (err, result) => {
+      if (err) {
+        console.log(err.sqlMessage);
+        socket.emit("error", err.sqlMessage);
+      } else {
+        console.log(result);
+        socket.emit("createChat",chatid);
+        
+      }
+    });
   });
 
 

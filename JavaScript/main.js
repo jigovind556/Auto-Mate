@@ -46,6 +46,7 @@ socket.on("createChat",(chatid)=>{
   form.username.value=User.id;
   form.room.value=chatid;
   form.submit();
+  // socket.emit('joinRoom' , {username, room})
 });
 socket.on("error", (message) => {
   console.log(message);
@@ -107,14 +108,21 @@ function submitData() {
   };
   if (data.To != "" && data.From != "") {
     socket.emit("submit_new_data", data);
+
   }
 }
 
 
 
 function join_chatgroup(chatid){
-  var form=document.getElementById("chatForm");
-  form.username.value=User.id;
-  form.room.value=chatid;
-  form.submit();
+  // var form=document.getElementById("chatForm");
+  // form.username.value=User.id;
+  // form.room.value=chatid;
+  // form.submit();
+  console.log(chatid);
+  var data={
+    Email : User.id,
+    chatid : chatid
+  }
+  socket.emit("joinchat", data);
 }
