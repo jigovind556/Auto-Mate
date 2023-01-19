@@ -113,15 +113,17 @@ app.use(
 );
 
 //Run when client connect
-io.on("connection", (socket) => {
-  //
-  socket.on("joinRoom", async ({ username, room }) => {
-    try {
-      let result = await collection.findOne({ room_name: room });
+io.on('connection', socket =>{
 
-      if (!result) {
-        await collection.insertOne({ room_name: room, messages: [] });
-      }
+    //
+    socket.on('joinRoom', async ({username, room}) =>{
+
+        try{
+            let result = await collection.findOne({"room_name" : room});
+
+            if(!result){
+                await collection.insertOne({"room_name" : room , messages : [] , username: username});
+            }
 
       const user = userJoin(socket.id, username, room);
 
