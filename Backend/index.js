@@ -11,8 +11,8 @@ const moment = require("moment");
 
 const db = mysql.createConnection({
   user: "root",
-  host: "localhost",
-  password: "1989",
+  host: "automate.cs0gg5mbtn2b.ap-south-1.rds.amazonaws.com",
+  password: "Shivam114",
   database: "auto_mate",
   multipleStatements: true,
 });
