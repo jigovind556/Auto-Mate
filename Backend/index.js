@@ -63,6 +63,23 @@ app.post("/createuser", (req, res) => {
   }
 });
 
+app.post ("/places", async (req,res)=>{
+  try {
+    db.query("select place from places where city='kurukshetra';",
+    (err,result)=>{
+      if (err) {
+        console.log(err.sqlMessage);
+        res.status(102).send(new Error(err.sqlMessage));
+      } else {
+        res.send(result);
+      }
+    }
+    );
+  } catch (error) {
+    res.status(102).send(new Error(error));
+  }
+});
+
 // CHAT CODE
 
 const path = require("path");
