@@ -7,6 +7,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
+const moment = require('moment');
+
 
 const db = mysql.createConnection({
   user: "root",
@@ -129,6 +131,11 @@ io.on('connection', socket =>{
 
       socket.join(user.room);
 
+      //Finding previous history
+      collection.findOne({"room_name" : room}).then(msg =>{
+        socket.emit('output-message', formatMessage(user.username, msg))
+      })
+
       //Welcome connect user
       socket.emit(
         "message",
@@ -170,12 +177,13 @@ io.on('connection', socket =>{
       });
 
       //Listen for  chatMessage
-      socket.on("chatMessage", (msg) => {
+      socket.on("chatMessage", ({msg,username}) => {
+        const time = moment().format("h:mm a");
         collection.updateOne(
           { room_name: socket.activeRoom },
           {
             $push: {
-              message: msg,
+              message: {username,msg ,time},
             },
           }
         );
@@ -193,8 +201,10 @@ io.on('connection', socket =>{
 
   socket.on("check_mate", async ({ To, From, Date, Time }) => {
     console.log(To, From, Time);
-    db.query(`select name, travel_time from travel t,user u 
-    where t.Email=u.Email and dest=? and jstart=? and 
+    db.query(`select name, travel_time ,cr.chatRoom_id ,cr.No_of_person from travel t,user u ,chatgroup cg ,chatroom cr
+          where t.Email=u.Email and t.Email=cg.Email and cg.chatRoom_id=cr.chatRoom_id and 
+          t.travel_date=cr.date and t.travel_time=cr.MeanTime
+           and dest=? and jstart=? and
           travel_date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
               [To, From, Date, Time, Time], (err, result) => {
             if (err) {
@@ -207,29 +217,36 @@ io.on('connection', socket =>{
           });
   });
 
-  socket.on("submit_new_data", async ({ Email, To, Date, From, Time }) => {
+  socket.on("submit_new_data", async ({ Email, To, Date, From, Time ,chatid}) => {
     try {
-
+      
+      console.log(chatid);
+      // var chatid="1245624";
       db.query(`
       Insert into travel (Email,dest,jstart,travel_date,travel_time) values
-      (?,?,?,?,?);`,
-          [Email, To, From, Date, Time], (err, result) => {
+      (?,?,?,?,?);
+      insert into chatroom (chatRoom_id,MeanTime,date,NO_of_person) values (?,?,?,"1");
+      insert into chatgroup (Email, chatRoom_id) values (?,?); `,
+          [Email, To, From, Date, Time,chatid,Time,Date,Email,chatid], (err, result) => {
         if (err) {
           console.log(err.sqlMessage);
           socket.emit("error", err.sqlMessage);
         } else {
           console.log(result);
 
-          db.query(`select name, travel_time from travel t,user u 
-          where t.Email=u.Email and dest=? and jstart=? and 
-                travel_date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
-                    [To, From, Date, Time, Time], (err, result) => {
+          db.query(`select name, travel_time ,cr.chatRoom_id ,cr.No_of_person from travel t,user u ,chatgroup cg ,chatroom cr
+          where t.Email=u.Email and t.Email=cg.Email and cg.chatRoom_id=cr.chatRoom_id and 
+          t.travel_date=cr.date and t.travel_time=cr.MeanTime
+           and dest=? and jstart=? and
+          travel_date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
+              [To, From, Date, Time, Time], (err, result) => {
             if (err) {
               console.log(err.sqlMessage);
               socket.emit("error", err.sqlMessage);
             } else {
               console.log(result);
               socket.emit("receive_message", result);
+              socket.emit("createChat",chatid);
             }
           });
 
@@ -241,6 +258,20 @@ io.on('connection', socket =>{
     } catch (error) {
       console.log(error);
     }
+  });
+
+  socket.on("joinchat", async ({Email,chatid})=>{
+    
+    db.query(`insert into chatgroup (Email, chatRoom_id) values (?,?);`, [Email,chatid], (err, result) => {
+      if (err) {
+        console.log(err.sqlMessage);
+        socket.emit("error", err.sqlMessage);
+      } else {
+        console.log(result);
+        socket.emit("createChat",chatid);
+        
+      }
+    });
   });
 
 

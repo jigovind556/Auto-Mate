@@ -6,6 +6,7 @@ body, html {
   letter-spacing: 0.025em;
   color: #333;
   background: #F7F7F7;
+  /* align-items: center; */
 }
 
 .center {
@@ -70,7 +71,8 @@ body, html {
   box-sizing: border-box;
   border-radius: 1rem 0 0 1rem;
   cursor: pointer;
-  background: white;
+  /* background: white; */
+  background-color: #FDDD80;
   box-shadow: 0 0 8rem 0 rgba(0, 0, 0, 0.1), 2rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
   transition: transform 500ms;
 }
@@ -94,6 +96,7 @@ body, html {
 }
 
 .chat {
+  background-color: #FDDD80;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -103,7 +106,7 @@ body, html {
   z-index: 2;
   box-sizing: border-box;
   border-radius: 1rem;
-  background: white;
+  /* background: white; */
   box-shadow: 0 0 8rem 0 rgba(0, 0, 0, 0.1), 0rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
 }
 .chat .contact.bar {

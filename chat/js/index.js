@@ -1,7 +1,9 @@
 const chatForm = document.getElementById('chat-form')
 const chatMessage = document.getElementById('chat')
 const userList = document.getElementById('user_list')
-
+const Server = "http://127.0.0.1:3001";
+const Server2 = Server + "/chat";
+var socket = io(Server);
 
 //Get User name and from URL
 const {username , room} = Qs.parse(location.search, {
@@ -18,10 +20,18 @@ function time(message){
     document.getElementById('chat').appendChild(div);
 }
 
+function timeOld(message){
+  const div = document.createElement('div');
+  div.classList.add('time');
+  div.innerHTML = `${message.time}`;
+  
+  document.getElementById('chat').appendChild(div);
+}
 
 
 
-const socket = io();
+
+// const socket = io();
 
 // Join Chat room
 socket.emit('joinRoom' , {username, room})
@@ -47,15 +57,43 @@ socket.on('message', (message) =>{
     chatMessage.scrollTop = chatMessage.scrollHeight;
 });
 
+socket.on('output-message', (message) =>{
+  console.log(message);
+  
+  // if(message.length){
+  //   message.text.message.forEach((message) =>{
+  //     timeOld(message) 
+  //     outputMessageOld(message.text.message)
+  //   });
+  // }
+  const messageVar = message.text.message;
+    for(let i = 0; i < messageVar.length; i++)
+    {
+      timeOld(message)
+      var msg_value = message.text.message[i];
+      outputMessageOld(msg_value);
+      console.log("print");
+    }
+
+
+
+  //Scroll down
+  chatMessage.scrollTop = chatMessage.scrollHeight;
+});
+
 //Message submit
 chatForm.addEventListener('submit' , e =>{
     e.preventDefault();
 
     //Get Text Message
     const msg = e.target.elements.msg.value;
+    data={
+      msg:msg,
+      username:username
+    }
 
     //EMit messgae to the server
-    socket.emit('chatMessage', msg);
+    socket.emit('chatMessage', data);
 
     //clear input
     e.target.elements.msg.value = '';
@@ -82,6 +120,25 @@ function outputRoomName(room){
     outputRoomName.innerText = room;
 }
 
+function outputMessageOld(message){
+  console.log(message);
+  const div = document.createElement('div');
+  div.classList.add('message');
+  div.innerHTML = `<div class="user_detail">
+  <p class="user_name">${message.username}</p>
+  <p class="chat_time">${message.time}</p> 
+</div>
+${message.msg}`;
+
+  document.getElementById('chat').appendChild(div);
+}
+
+//Add Room Name
+function outputRoomName(room){
+  console.log(room);
+  outputRoomName.innerText = room;
+}
+
 
 function outputUsers(users) {
     const div = document.createElement('div');
@@ -91,13 +148,14 @@ function outputUsers(users) {
       2
     </div>
     <div class="name">
-      ${user.username}
+      ${users.username}
     </div>
     <div class="message">
       Hey Peter Parker, you got something for me?
     </div>` 
     document.getElementById('user_list').appendChild(div);
   }
+  
 
 document.getElementById('room_name').innerHTML = room;
 
