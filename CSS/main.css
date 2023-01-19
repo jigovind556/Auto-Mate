@@ -59,10 +59,7 @@ body {
     font-size: 20px;
   }
 
-.inputs {
-    text-align: left;
-    margin-top: 30px;
-}
+
 
 input{
   display: block;
@@ -88,17 +85,64 @@ input::placeholder {
     border-radius: 50px;
     box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
   }
+  /* destinaton selection */
+  #To,#From,#Day{
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    background: #ecf0f3;
+    padding: 10px;
+    padding-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    height: 50px;
+    font-size: 14px;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+  }
+  #To option,#From option,#Day option{
+    background-color:#A6BB8D;
+    color: #666;
+    
+  }
+  .inputs {
+    display: flex;
+      text-align: left;
+      margin-top: 30px;
+  
+  }
+  .inputs2,.inputs3{
+    display: flex;
+    text-align: left;
+    margin-top: 30px;  
+  }
+  .inputs p{
+    margin-top: 25px;
+    margin-right: 25px ;
+    font-size: 17px;
+    font-weight: bold;
 
+  }
+  .inputs2 p,.inputs3 p{
+    font-weight: bold;
+    margin-top: 25px;
+    margin-right: 5px ;
+    font-size: 17px;
+  }
   .time{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
   }
   .fixTime{
-    background-color: white;
+    background-color: #ecf0f3;;
     border-radius: 10px;
     padding: 20px;
     min-height: 150px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
   }
   .fixTime .people1{
     background-color: #DDDDDD;

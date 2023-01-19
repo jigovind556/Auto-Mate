@@ -30,9 +30,34 @@
         </section>
         
         <div class="inputs">
-            <input type="text" id="To" placeholder="To" onchange="check_mates()">
-            <input type="text" id="From" placeholder="from" onchange="check_mates()">
+            <!-- <input type="text" id="To" placeholder="To" onchange="check_mates()">
+            <input type="text" id="From" placeholder="from" onchange="check_mates()"> -->
+            <p>To</p>
+            <select id='To'onchange="check_mates()">
+            <option value="place1">Place 1</option>
+            <option value="place2">Place 2</option>
+            <option value="place3">Place 3</option>
+            <option value="place4">Place 4</option>
+            </select>              
         </div>
+        <div class="inputs2" onchange="check_mates()">
+            <p>From</p>
+            <select id='From'>
+            <option value="place1">Place 1</option>
+            <option value="place2">Place 2</option>
+            <option value="place3">Place 3</option>
+            <option value="place4">Place 4</option>
+             </select>
+        </div>
+        <div class="inputs3">
+            <p>Day</p>
+            <select id='Day'>
+            <option value="place1">Today</option>
+            <option value="place2">Tomorrow</option>
+            <option value="place3">Overmorrow</option>
+             </select>
+        </div>
+
         <div class="input-group clockpicker">
             <h4 class="time">Set time</h4>
         <input type="text" id="Time" class="form-control" class="time" onchange="check_mates()" value="19:00">
