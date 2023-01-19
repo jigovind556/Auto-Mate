@@ -232,6 +232,8 @@ margin: 2px 15px;
   border: transparent solid;
   box-shadow: rgba(0,0,0, 1);
   height: 22px;
+  margin-bottom: 20px;
+  margin-left: 20px;
 }
 #Submit_buttons button:hover{
   background-color: #CDE990;
