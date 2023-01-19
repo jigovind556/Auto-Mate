@@ -61,7 +61,7 @@ function checkCookie() {
     var button = document.getElementById("signinButton");
     var button2 = document.getElementById("Submit_buttons");
     button.innerHTML = `<button id="logout" onclick="logout()">Logout</button>`;
-    button2.innerHTML = `<button id="submit" onclick="submitData()">submit</button>`;
+    button2.innerHTML += `<button id="submit" onclick="submitData()">submit</button>`;
   } else {
     var button = document.getElementById("signinButton");
     button.innerHTML = `<button id="login" onclick="login()">Login</button>`;
@@ -119,10 +119,22 @@ function join_chatgroup(chatid){
   // form.username.value=User.id;
   // form.room.value=chatid;
   // form.submit();
+  var nowDate = new Date();
+  var date =
+    nowDate.getFullYear() +
+    "/" +
+    (nowDate.getMonth() + 1) +
+    "/" +
+    nowDate.getDate();
+  var data = {
+    Email: User.id,
+    To: document.getElementById("To").value,
+    From: document.getElementById("From").value,
+    Date: date,
+    Time: document.getElementById("Time").value,
+    chatid:chatid
+  };
   console.log(chatid);
-  var data={
-    Email : User.id,
-    chatid : chatid
-  }
+ 
   socket.emit("joinchat", data);
 }

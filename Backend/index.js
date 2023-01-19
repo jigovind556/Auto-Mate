@@ -7,8 +7,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
-const moment = require('moment');
-
+const moment = require("moment");
 
 const db = mysql.createConnection({
   user: "root",
@@ -115,26 +114,28 @@ app.use(
 );
 
 //Run when client connect
-io.on('connection', socket =>{
+io.on("connection", (socket) => {
+  //
+  socket.on("joinRoom", async ({ username, room }) => {
+    try {
+      let result = await collection.findOne({ room_name: room });
 
-    //
-    socket.on('joinRoom', async ({username, room}) =>{
-
-        try{
-            let result = await collection.findOne({"room_name" : room});
-
-            if(!result){
-                await collection.insertOne({"room_name" : room , messages : [] , username: username});
-            }
+      if (!result) {
+        await collection.insertOne({
+          room_name: room,
+          messages: [],
+          username: username,
+        });
+      }
 
       const user = userJoin(socket.id, username, room);
 
       socket.join(user.room);
 
       //Finding previous history
-      collection.findOne({"room_name" : room}).then(msg =>{
-        socket.emit('output-message', formatMessage(user.username, msg))
-      })
+      collection.findOne({ room_name: room }).then((msg) => {
+        socket.emit("output-message", formatMessage(user.username, msg));
+      });
 
       //Welcome connect user
       socket.emit(
@@ -177,13 +178,13 @@ io.on('connection', socket =>{
       });
 
       //Listen for  chatMessage
-      socket.on("chatMessage", ({msg,username}) => {
+      socket.on("chatMessage", ({ msg, username }) => {
         const time = moment().format("h:mm a");
         collection.updateOne(
           { room_name: socket.activeRoom },
           {
             $push: {
-              message: {username,msg ,time},
+              message: { username, msg, time },
             },
           }
         );
@@ -201,85 +202,111 @@ io.on('connection', socket =>{
 
   socket.on("check_mate", async ({ To, From, Date, Time }) => {
     console.log(To, From, Time);
-    db.query(`select name, travel_time ,cr.chatRoom_id ,cr.No_of_person from travel t,user u ,chatgroup cg ,chatroom cr
+    db.query(
+      `select name, travel_time ,cr.chatRoom_id ,cr.No_of_person from travel t,user u ,chatgroup cg ,chatroom cr
           where t.Email=u.Email and t.Email=cg.Email and cg.chatRoom_id=cr.chatRoom_id and 
           t.travel_date=cr.date and t.travel_time=cr.MeanTime
            and dest=? and jstart=? and
           travel_date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
-              [To, From, Date, Time, Time], (err, result) => {
-            if (err) {
-              console.log(err.sqlMessage);
-              socket.emit("error", err.sqlMessage);
-            } else {
-              console.log(result);
-              socket.emit("receive_message", result);
-            }
-          });
-  });
-
-  socket.on("submit_new_data", async ({ Email, To, Date, From, Time ,chatid}) => {
-    try {
-      
-      console.log(chatid);
-      // var chatid="1245624";
-      db.query(`
-      Insert into travel (Email,dest,jstart,travel_date,travel_time) values
-      (?,?,?,?,?);
-      insert into chatroom (chatRoom_id,MeanTime,date,NO_of_person) values (?,?,?,"1");
-      insert into chatgroup (Email, chatRoom_id) values (?,?); `,
-          [Email, To, From, Date, Time,chatid,Time,Date,Email,chatid], (err, result) => {
+      [To, From, Date, Time, Time],
+      (err, result) => {
         if (err) {
           console.log(err.sqlMessage);
           socket.emit("error", err.sqlMessage);
         } else {
           console.log(result);
+          socket.emit("receive_message", result);
+        }
+      }
+    );
+  });
 
-          db.query(`select name, travel_time ,cr.chatRoom_id ,cr.No_of_person from travel t,user u ,chatgroup cg ,chatroom cr
-          where t.Email=u.Email and t.Email=cg.Email and cg.chatRoom_id=cr.chatRoom_id and 
-          t.travel_date=cr.date and t.travel_time=cr.MeanTime
-           and dest=? and jstart=? and
-          travel_date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
-              [To, From, Date, Time, Time], (err, result) => {
+  socket.on(
+    "submit_new_data",
+    async ({ Email, To, Date, From, Time, chatid }) => {
+      try {
+        console.log(chatid);
+        // var chatid="1245624";
+        db.query(
+          `
+      Insert into travel (Email,dest,jstart,travel_date,travel_time) values
+      (?,?,?,?,?);
+      insert into chatroom (chatRoom_id,MeanTime,date,NO_of_person) values (?,?,?,"1");
+      insert into chatgroup (Email, chatRoom_id) values (?,?); `,
+          [Email, To, From, Date, Time, chatid, Time, Date, Email, chatid],
+          (err, result) => {
             if (err) {
               console.log(err.sqlMessage);
               socket.emit("error", err.sqlMessage);
             } else {
               console.log(result);
-              socket.emit("receive_message", result);
-              socket.emit("createChat",chatid);
+
+              db.query(
+                `select name, travel_time ,cr.chatRoom_id ,cr.No_of_person from travel t,user u ,chatgroup cg ,chatroom cr
+          where t.Email=u.Email and t.Email=cg.Email and cg.chatRoom_id=cr.chatRoom_id and 
+          t.travel_date=cr.date and t.travel_time=cr.MeanTime
+           and dest=? and jstart=? and
+          travel_date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
+                [To, From, Date, Time, Time],
+                (err, result) => {
+                  if (err) {
+                    console.log(err.sqlMessage);
+                    socket.emit("error", err.sqlMessage);
+                  } else {
+                    console.log(result);
+                    socket.emit("receive_message", result);
+                    socket.emit("createChat", chatid);
+                  }
+                }
+              );
             }
-          });
-
-          
-        }
-      });
-
-      
-    } catch (error) {
-      console.log(error);
-    }
-  });
-
-  socket.on("joinchat", async ({Email,chatid})=>{
-    
-    db.query(`insert into chatgroup (Email, chatRoom_id) values (?,?);`, [Email,chatid], (err, result) => {
-      if (err) {
-        console.log(err.sqlMessage);
-        socket.emit("error", err.sqlMessage);
-      } else {
-        console.log(result);
-        socket.emit("createChat",chatid);
-        
+          }
+        );
+      } catch (error) {
+        console.log(error);
       }
-    });
+    }
+  );
+
+  socket.on("joinchat", async ({ Email, To, Date, From, Time, chatid  }) => {
+    console.log("Email " + Email + " chatid " + chatid);
+    db.query(
+      `select * from chatgroup where Email=? and chatRoom_id=? ;`,
+      [Email, chatid],
+      (err, result) => {
+        if (err) {
+          console.log(err.sqlMessage);
+          socket.emit("error", err.sqlMessage);
+        } else {
+          if (result[0]) {
+            socket.emit("createChat", chatid);
+          } else {
+            db.query(
+              `Insert into travel (Email,dest,jstart,travel_date,travel_time) values
+              (?,?,?,?,?);
+              update chatroom set No_of_person = No_of_person+1 where chatroom_id=?;
+              insert into chatgroup (Email, chatRoom_id) values (?,?);`,
+              [Email, To, From, Date, Time, chatid, Email, chatid],
+              (err, result) => {
+                if (err) {
+                  console.log(err.sqlMessage);
+                  socket.emit("error", err.sqlMessage);
+                } else {
+                  console.log(result);
+                  socket.emit("createChat", chatid);
+                }
+              }
+            );
+          }
+        }
+      }
+    );
   });
-
-
 });
 
 // these codes are for main page
 
-// 
+//
 
 server.listen(3001, async () => {
   try {
