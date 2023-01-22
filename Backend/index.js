@@ -17,12 +17,34 @@ const db = mysql.createConnection({
   multipleStatements: true,
 });
 
+// to get user info for signup page
 app.post("/getUser", (req, res) => {
   try {
     var email = req.body.email;
 
     console.log(email);
     db.query("select * from user where email =?;", [email], (err, result) => {
+      if (err) {
+        console.log(err.sqlMessage);
+        res.status(102).send(new Error(err.sqlMessage));
+      } else {
+        console.log(result);
+        res.send(result);
+      }
+    });
+  } catch (error) {
+    console.log("wrong user");
+    res.status(102).send(new Error("data should not be blank"));
+  }
+});
+
+// to get the user info for account page
+app.post("/getcred", (req, res) => {
+  try {
+    var email = req.body.email;
+
+    console.log(email);
+    db.query("select name,Mobile_no from user where email =?;", [email], (err, result) => {
       if (err) {
         console.log(err.sqlMessage);
         res.status(102).send(new Error(err.sqlMessage));
@@ -60,6 +82,46 @@ app.post("/createuser", (req, res) => {
   } catch (error) {
     console.log("wrong user");
     res.status(102).send(new Error("data should not be blank"));
+  }
+});
+
+// the function to change password
+app.post("/changepwd", (req, res) => {
+  try {
+    var email = req.body.email;
+    var OldPwd= req.body.OldPwd;
+    var NewPwd= req.body.NewPwd;
+    var pwd;
+
+    console.log(email);
+    db.query("select Password from user where email =?;", [email], (err, result) => {
+      if (err) {
+        console.log(err.sqlMessage);
+        res.status(102).send(new Error(err.sqlMessage));
+      } else {
+        // console.log(result[0].Password);
+        pwd=result[0].Password;
+        if(pwd==OldPwd){
+          db.query(`update user set Password=? where Email=?;`, 
+          [NewPwd, email], (err, result) => {
+            if (err) {
+              console.log(err.sqlMessage);
+              res.status(102).send(new Error(err.sqlMessage));
+            } else {
+              res.send("updated");
+            }
+          });
+          
+        }
+        else{
+          res.send("nomatch");
+        }
+        
+      }
+    });
+  } catch (error) {
+    console.log("wrong user");
+    res.status(102).send(new Error("Wrong data format"));
   }
 });
 
