@@ -18,7 +18,7 @@ const db = mysql.createConnection({
 });
 
 // to get user info for signup page
-app.post("/getUser", (req, res) => {
+app.post("/getUser",async (req, res) => {
   try {
     var email = req.body.email;
 
@@ -39,20 +39,24 @@ app.post("/getUser", (req, res) => {
 });
 
 // to get the user info for account page
-app.post("/getcred", (req, res) => {
+app.post("/getcred",async (req, res) => {
   try {
     var email = req.body.email;
 
     console.log(email);
-    db.query("select name,Mobile_no from user where email =?;", [email], (err, result) => {
-      if (err) {
-        console.log(err.sqlMessage);
-        res.status(102).send(new Error(err.sqlMessage));
-      } else {
-        console.log(result);
-        res.send(result);
+    db.query(
+      "select name,Mobile_no from user where email =?;",
+      [email],
+      (err, result) => {
+        if (err) {
+          console.log(err.sqlMessage);
+          res.status(102).send(new Error(err.sqlMessage));
+        } else {
+          console.log(result);
+          res.send(result);
+        }
       }
-    });
+    );
   } catch (error) {
     console.log("wrong user");
     res.status(102).send(new Error("data should not be blank"));
@@ -60,7 +64,7 @@ app.post("/getcred", (req, res) => {
 });
 
 //this function is to create account
-app.post("/createuser", (req, res) => {
+app.post("/createuser",async (req, res) => {
   try {
     var name = req.body.name;
     var Email = req.body.Email;
@@ -86,56 +90,118 @@ app.post("/createuser", (req, res) => {
 });
 
 // the function to change password
-app.post("/changepwd", (req, res) => {
+app.post("/changepwd",async (req, res) => {
   try {
     var email = req.body.email;
-    var OldPwd= req.body.OldPwd;
-    var NewPwd= req.body.NewPwd;
+    var OldPwd = req.body.OldPwd;
+    var NewPwd = req.body.NewPwd;
     var pwd;
 
     console.log(email);
-    db.query("select Password from user where email =?;", [email], (err, result) => {
-      if (err) {
-        console.log(err.sqlMessage);
-        res.status(102).send(new Error(err.sqlMessage));
-      } else {
-        // console.log(result[0].Password);
-        pwd=result[0].Password;
-        if(pwd==OldPwd){
-          db.query(`update user set Password=? where Email=?;`, 
-          [NewPwd, email], (err, result) => {
-            if (err) {
-              console.log(err.sqlMessage);
-              res.status(102).send(new Error(err.sqlMessage));
-            } else {
-              res.send("updated");
-            }
-          });
-          
+    db.query(
+      "select Password from user where email =?;",
+      [email],
+      (err, result) => {
+        if (err) {
+          console.log(err.sqlMessage);
+          res.status(102).send(new Error(err.sqlMessage));
+        } else {
+          // console.log(result[0].Password);
+          pwd = result[0].Password;
+          if (pwd == OldPwd) {
+            db.query(
+              `update user set Password=? where Email=?;`,
+              [NewPwd, email],
+              (err, result) => {
+                if (err) {
+                  console.log(err.sqlMessage);
+                  res.status(102).send(new Error(err.sqlMessage));
+                } else {
+                  res.send("updated");
+                }
+              }
+            );
+          } else {
+            res.send("nomatch");
+          }
         }
-        else{
-          res.send("nomatch");
-        }
-        
       }
-    });
+    );
   } catch (error) {
     console.log("wrong user");
     res.status(102).send(new Error("Wrong data format"));
   }
 });
 
-app.post ("/places", async (req,res)=>{
+// The function to update user detail
+app.post("/updtuser", async (req, res) => {
   try {
-    db.query("select place from places where city='kurukshetra';",
-    (err,result)=>{
-      if (err) {
-        console.log(err.sqlMessage);
-        res.status(102).send(new Error(err.sqlMessage));
-      } else {
-        res.send(result);
-      }
+    var email = req.body.email;
+    var name = req.body.name;
+    var Mob = req.body.Mob;
+    var f1= true,f2=true;
+    console.log(f1,f2);
+    if (name != "" && Mob=="") {
+      db.query(
+        `update user set name=? where Email=?;`,[name,email],
+        (err, result) => {
+          if (err) {
+            console.log(err.sqlMessage);
+            res.status(102).send(new Error(err.sqlMessage));
+          } else {
+            console.log(true);
+            res.send("success");
+          }
+        }
+      );
     }
+    else if(name == "" && Mob!=""){
+      db.query(
+        `update user set Mobile_no=? where Email=?;`,[Mob,email],
+        (err, result) => {
+          if (err) {
+            console.log(err.sqlMessage);
+            res.status(102).send(new Error(err.sqlMessage));
+          } else {
+            console.log(true);
+            res.send("success");
+          }
+        }
+      );
+    }
+    else if(name!= "" && Mob != ""){
+      db.query(
+        `update user set name=? ,Mobile_no=? where Email=?;`,[name,Mob,email],
+        (err, result) => {
+          if (err) {
+            console.log(err.sqlMessage);
+            res.status(102).send(new Error(err.sqlMessage));
+          } else {
+            console.log(true);
+            res.send("success");
+          }
+        }
+      );
+    }
+   
+  } catch (error) {
+    res.status(102).send(new Error(error));
+  }
+});
+
+// The function to get all places in a city
+app.post("/places", async (req, res) => {
+  try {
+    db.query(
+      "select place from places where city='kurukshetra';",
+      (err, result) => {
+        if (err) {
+          console.log(err.sqlMessage);
+          res.status(102).send(new Error(err.sqlMessage));
+        } else {
+          res.send(result);
+        }
+      }
     );
   } catch (error) {
     res.status(102).send(new Error(error));
@@ -173,7 +239,11 @@ const server = http.createServer(app);
 // const io = socketio(server);
 var io = require("socket.io")(server, {
   cors: {
-    origin: ["http://127.0.0.1:5501","https://jigovind556.github.io", "http://127.0.0.1:3001"],
+    origin: [
+      "http://127.0.0.1:5501",
+      "https://jigovind556.github.io",
+      "http://127.0.0.1:3001",
+    ],
   },
 });
 // const io = require("socket.io")(server, {
@@ -290,7 +360,7 @@ io.on("connection", (socket) => {
       `select room_name , travel_time ,chatRoom_id ,No_of_person from chatroom 
       where  dest=? and jstart=? and
       date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
-        [To, From, Date, Time, Time],
+      [To, From, Date, Time, Time],
       (err, result) => {
         if (err) {
           console.log(err.sqlMessage);
@@ -316,7 +386,7 @@ io.on("connection", (socket) => {
         (select name from user where Email=?),
       ?,?,"1");
       insert into chatgroup (Email, chatRoom_id) values (?,?); `,
-          [ chatid,To,From,Email, Time, Date, Email, chatid],
+          [chatid, To, From, Email, Time, Date, Email, chatid],
           (err, result) => {
             if (err) {
               console.log(err.sqlMessage);
@@ -349,7 +419,7 @@ io.on("connection", (socket) => {
     }
   );
 
-  socket.on("joinchat", async ({ Email, To, Date, From, Time, chatid  }) => {
+  socket.on("joinchat", async ({ Email, To, Date, From, Time, chatid }) => {
     console.log("Email " + Email + " chatid " + chatid);
     db.query(
       `select * from chatgroup where Email=? and chatRoom_id=? ;`,
@@ -366,7 +436,7 @@ io.on("connection", (socket) => {
               `
               update chatroom set No_of_person = No_of_person+1 where chatroom_id=?;
               insert into chatgroup (Email, chatRoom_id) values (?,?);`,
-              [ chatid, Email, chatid],
+              [chatid, Email, chatid],
               (err, result) => {
                 if (err) {
                   console.log(err.sqlMessage);
