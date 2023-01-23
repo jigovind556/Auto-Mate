@@ -159,7 +159,7 @@ function checkCookie() {
     nav.innerHTML += `<li><a href="myaccount.html"><i class="fa-solid fa-user"></i></a></li>`;
     var button = document.getElementById("signinButton");
     button.innerHTML += `<button id="logout" onclick="logout()">Logout</button>`;
-    button2.innerHTML += `<button id="submit" onclick="submitData()">submit</button>`;
+    button2.innerHTML += `<button id="submit" onclick="submitData()">Submit</button>`;
   } else {
     var button = document.getElementById("signinButton");
     button.innerHTML = `<button id="login" onclick="login()">Login</button>`;

@@ -241,6 +241,7 @@ var io = require("socket.io")(server, {
   cors: {
     origin: [
       "http://127.0.0.1:5501",
+      "http://127.0.0.1:5502",
       "https://jigovind556.github.io",
       "http://127.0.0.1:3001",
     ],
