@@ -52,7 +52,12 @@ body {
     position: relative;
   }
 
+#tophead{
+  display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
 
+}
 
 
 .header i{
@@ -264,7 +269,7 @@ margin: 2px 15px;
 }
 
 /* navbar */
-#navbar{
+/* #navbar{
   display: flex;
   justify-content: space-between;
 }
@@ -276,24 +281,26 @@ margin: 2px 15px;
 }
 #navbar li a{
   text-decoration: none;
-}
-#navbar li i{
+} */
+/* #navbar li i{ */
   /* color:#5D8233; */
-  color: #357C3C;
+  /* color: #357C3C;
   border-color: #357C3C;
   background: #fff;
   cursor: pointer;
   height: 30px;
   border-radius: 20px;
   width: 30px;
-  margin-top: 15px;
+  margin-top: 15px; */
   /* box-shadow: 14px 14px 20px #d1b95a, -14px -14px 20px rgb(218, 190, 89); */
-  transition: 0.5s;
-  align-content: center;
+  /* transition: 0.5s;
+  align-content: center; */
 
   /* padding: 1px; */
 
-}
+/* } */
+
+
 
 #signinButton button{
   /* background-color: #E5E0FF;
