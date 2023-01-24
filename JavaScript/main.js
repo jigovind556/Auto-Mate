@@ -72,13 +72,22 @@ function setplaces() {
   axios
     .post(Server2, data)
     .then((res) => {
-      place=res.data;
-      var To=document.getElementById("To");
-      var From=document.getElementById("From");
+      place = res.data;
+      var To = document.getElementById("To");
+      var From = document.getElementById("From");
       for (let i = 0; i < place.length; i++) {
-        To.innerHTML+=`<option value="`+place[i].place+`">`+place[i].place+`</option>`
-        From.innerHTML+=`<option value="`+place[i].place+`">`+place[i].place+`</option>`
-        
+        To.innerHTML +=
+          `<option value="` +
+          place[i].place +
+          `">` +
+          place[i].place +
+          `</option>`;
+        From.innerHTML +=
+          `<option value="` +
+          place[i].place +
+          `">` +
+          place[i].place +
+          `</option>`;
       }
     })
     .catch((err) => {
@@ -95,13 +104,16 @@ function check_mates() {
     (nowDate.getMonth() + 1) +
     "/" +
     nowDate.getDate();
+  var nop = 5 - document.getElementById("People").value;
+
   var data = {
     To: document.getElementById("To").value,
     From: document.getElementById("From").value,
     Date: document.getElementById("Day").value,
     Time: document.getElementById("Time").value,
+    Nop: nop,
   };
-  if (data.To != "" && data.From != "" && data.To !=data.From) {
+  if (data.To != "" && data.From != "" && data.To != data.From) {
     socket.emit("check_mate", data);
   }
 }
@@ -110,31 +122,35 @@ function check_mates() {
 // tomorrow("2021-4-30")
 
 socket.on("receive_message", (message) => {
-  console.log(message);
+  console.log(message.length);
   var mate = document.getElementById("Matebox");
   mate.innerHTML = "";
-  for (var i = 0; i < message.length; i++) {
-    console.log(message[i].name);
-    mate.innerHTML +=
-      `
-    <div class="people1" value="` +
-      message[i].chatRoom_id +
-      `" onclick="join_chatgroup('` +
-      message[i].chatRoom_id +
-      `')">
-    <div class="info"> 
-        <div class="name"><h4>` +
-      message[i].room_name +
-      `</h4></div>
-        <div class="time"><h4>` +
-      message[i].travel_time.slice(0, 5) +
-      `</h4></div>
-        <i class="fa-solid fa-users"> ` +
-      message[i].No_of_person +
-      `</i> 
+  if (message.length == 0) {
+    mate.innerHTML += "no one is available";
+  } else {
+    for (var i = 0; i < message.length; i++) {
 
-        </div>
-    </div>`;
+      mate.innerHTML +=
+        `
+      <div class="people1" value="` +
+        message[i].chatRoom_id +
+        `" onclick="join_chatgroup('` +
+        message[i].chatRoom_id +
+        `')">
+      <div class="info"> 
+          <div class="name"><h4>` +
+        message[i].room_name +
+        `</h4></div>
+          <div class="time"><h4>` +
+        message[i].travel_time.slice(0, 5) +
+        `</h4></div>
+          <i class="fa-solid fa-users"> ` +
+        message[i].No_of_person +
+        `</i> 
+
+          </div>
+      </div>`;
+    }
   }
 });
 socket.on("createChat", (chatid) => {
@@ -155,14 +171,21 @@ function checkCookie() {
   if (user != "") {
     User = JSON.parse(user);
     var button2 = document.getElementById("Submit_buttons");
-    var nav = document.getElementById("navbar");
-    nav.innerHTML += `<li><a href="myaccount.html"><i class="fa-solid fa-user"></i></a></li>`;
-    var button = document.getElementById("signinButton");
-    button.innerHTML += `<button id="logout" onclick="logout()">Logout</button>`;
+    var nav = document.getElementById("tophead");
+    nav.innerHTML += `<div id="menu" onclick="onClickMenu()">
+          <div id="bar1" class="bar"></div>
+          <div id="bar2" class="bar"></div>
+          <div id="bar3" class="bar"></div>
+        </div> `;
+    // var button = document.getElementById("signinButton");
+    // button.innerHTML += `<button id="logout" onclick="logout()">Logout</button>`;
     button2.innerHTML += `<button id="submit" onclick="submitData()">Submit</button>`;
   } else {
-    var button = document.getElementById("signinButton");
-    button.innerHTML = `<button id="login" onclick="login()">Login</button>`;
+    var nav = document.getElementById("tophead");
+    nav.innerHTML += `<button id="signinButton" onclick="login()">Login</button> `;
+
+    // var button = document.getElementById("login_status");
+    // button.innerHTML = `Login`;
   }
 }
 function accessCookie(cname) {
@@ -202,6 +225,7 @@ function submitData() {
     From: document.getElementById("From").value,
     Date: document.getElementById("Day").value,
     Time: document.getElementById("Time").value,
+    Nop: document.getElementById("People").value,
     chatid: Date.now() + Math.floor(Math.random() * 100),
   };
   if (data.To != "" && data.From != "" && data.To != data.From) {
@@ -227,6 +251,7 @@ function join_chatgroup(chatid) {
     From: document.getElementById("From").value,
     Date: date,
     Time: document.getElementById("Time").value,
+    Nop: document.getElementById("People").value,
     chatid: chatid,
   };
   console.log(chatid);

@@ -48,18 +48,19 @@
             <li><div id="signinButton"></div></li>
           </ul> -->
         </section>
-        <div id="menu" onclick="onClickMenu()">
+        <!-- <div id="menu" onclick="onClickMenu()">
           <div id="bar1" class="bar"></div>
           <div id="bar2" class="bar"></div>
           <div id="bar3" class="bar"></div>
-        </div>    
+        </div>     -->
+
         </div>
         <div id="navigation">
           <ul class="nav" id="nav">
             <li><a href="myaccount.html">User Account</a></li>
             <li><a href="thistory.html">Travel History</a></li>
             <li><a href="#">About Us</a></li>
-            <li><a href="signin.html">Login</a></li>
+            <li><a  onclick="logout()" id="login_status">Log Out</a></li>
           </ul>
         </div>
         
@@ -89,11 +90,11 @@
         <div class="inputs4">
          <p>People</p>
          <select id="People" onchange="check_mates()">
-           <option value="per1">1</option>
-             <option value="per2">2</option>
-             <option value="per3">3</option>
-             <option value="per4">4</option>
-             <option value="per5">5</option>
+           <option value="1">1</option>
+             <option value="2">2</option>
+             <option value="3">3</option>
+             <option value="4">4</option>
+             <option value="5">5</option>
          </select>
        </div>
        <div class="inputs3">

@@ -88,7 +88,7 @@ function appendHistory(data) {
             `</p>
     </div>
     <div id="bustop">
-      <img src="IMG/`+img+`.png" alt="img" width="140px" height="150px" />
+      <img src="IMG/locs/`+img+`.png" alt="img" width="140px" height="150px" />
     </div>
   </div>
   <br />`;
