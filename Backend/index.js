@@ -218,13 +218,13 @@ app.post("/thistory", async (req, res) => {
     db.query(
       `select cr.chatRoom_id,DATE_FORMAT(date,'%d-%b-%Y') as date,travel_Time,dest,jstart,No_of_person,room_name,travel_status
       from chatroom cr , chatgroup cg where 
-      cr.chatRoom_id=cg.chatRoom_id and  cg.Email=? and 
+      cr.chatRoom_id=cg.chatRoom_id and  cg.Email=? and cr.date<=? and
       cr.chatRoom_id not in
       (select cr2.chatRoom_id
       from chatroom cr2 where
-      cr2.travel_time>? and date=? )
+      cr2.travel_time>? and cr2.date=? )
       order by date desc ,travel_Time desc;`,
-      [email,tim,dat],(err, result) => {
+      [email,dat,tim,dat],(err, result) => {
         if (err) {
           console.log(err.sqlMessage);
           res.status(102).send(new Error(err.sqlMessage));
@@ -385,13 +385,13 @@ io.on("connection", (socket) => {
 
   console.log(socket.id + " for io2");
 
-  socket.on("check_mate", async ({ To, From, Date, Time }) => {
+  socket.on("check_mate", async ({ To, From, Date, Time, Nop}) => {
     console.log(To, From, Time);
     db.query(
       `select room_name , travel_time ,chatRoom_id ,No_of_person from chatroom 
-      where  dest=? and jstart=? and
+      where  dest=? and jstart=? and No_of_person<=? and
       date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
-      [To, From, Date, Time, Time],
+      [To, From,Nop, Date, Time, Time],
       (err, result) => {
         if (err) {
           console.log(err.sqlMessage);
@@ -406,8 +406,9 @@ io.on("connection", (socket) => {
 
   socket.on(
     "submit_new_data",
-    async ({ Email, To, Date, From, Time, chatid }) => {
+    async ({ Email, To, Date, From, Time,Nop, chatid }) => {
       try {
+        var nop2=5-Nop;
         console.log(chatid);
         // var chatid="1245624";
         db.query(
@@ -415,9 +416,9 @@ io.on("connection", (socket) => {
       
       insert into chatroom (chatRoom_id,dest,jstart,room_name,travel_time,date,NO_of_person) values (?,?,?,
         (select name from user where Email=?),
-      ?,?,"1");
-      insert into chatgroup (Email, chatRoom_id) values (?,?); `,
-          [chatid, To, From, Email, Time, Date, Email, chatid],
+      ?,?,?);
+      insert into chatgroup (Email, chatRoom_id,nop_with_you) values (?,?,?); `,
+          [chatid, To, From, Email, Time, Date,Nop, Email, chatid,Nop],
           (err, result) => {
             if (err) {
               console.log(err.sqlMessage);
@@ -426,10 +427,10 @@ io.on("connection", (socket) => {
               console.log(result);
 
               db.query(
-                `select room_name , travel_time ,chatRoom_id ,No_of_person from chatroom 
-          where  dest=? and jstart=? and
-          date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
-                [To, From, Date, Time, Time],
+               ` select room_name , travel_time ,chatRoom_id ,No_of_person from chatroom 
+                where  dest=? and jstart=? and No_of_person<=? and
+                date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
+                [To, From,nop2, Date, Time, Time],
                 (err, result) => {
                   if (err) {
                     console.log(err.sqlMessage);
@@ -450,8 +451,9 @@ io.on("connection", (socket) => {
     }
   );
 
-  socket.on("joinchat", async ({ Email, To, Date, From, Time, chatid }) => {
+  socket.on("joinchat", async ({ Email, To, Date, From, Time,Nop, chatid }) => {
     console.log("Email " + Email + " chatid " + chatid);
+    var nop2=5-Nop;
     db.query(
       `select * from chatgroup where Email=? and chatRoom_id=? ;`,
       [Email, chatid],
@@ -465,9 +467,9 @@ io.on("connection", (socket) => {
           } else {
             db.query(
               `
-              update chatroom set No_of_person = No_of_person+1 where chatroom_id=?;
-              insert into chatgroup (Email, chatRoom_id) values (?,?);`,
-              [chatid, Email, chatid],
+              update chatroom set No_of_person = No_of_person+? where chatroom_id=?;
+              insert into chatgroup (Email, chatRoom_id,nop_with_you) values (?,?,?);`,
+              [Nop,chatid, Email, chatid,Nop],
               (err, result) => {
                 if (err) {
                   console.log(err.sqlMessage);
