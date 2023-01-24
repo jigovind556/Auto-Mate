@@ -216,7 +216,7 @@ app.post("/thistory", async (req, res) => {
     var tim = req.body.time;
     var dat = req.body.date;
     db.query(
-      `select cr.chatRoom_id,date,travel_Time,dest,jstart,No_of_person,room_name,travel_status
+      `select cr.chatRoom_id,DATE_FORMAT(date,'%d-%b-%Y') as date,travel_Time,dest,jstart,No_of_person,room_name,travel_status
       from chatroom cr , chatgroup cg where 
       cr.chatRoom_id=cg.chatRoom_id and  cg.Email=? and 
       cr.chatRoom_id not in

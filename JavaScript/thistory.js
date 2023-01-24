@@ -58,10 +58,11 @@ function appendHistory(data) {
     var hist = document.getElementById("history");
     for (let i = 0; i < data.length; i++) {
         var anyDate = data[i].date;
-        var date2 = anyDate.replace(/[-]/g, '/').replace('T', ' ').replace('Z', '');
-        date2 = Date.parse(date2);
-        date2 = new Date(date2);
-        date2 = date2.toShortFormat();
+        // var date2 = anyDate.replace(/[-]/g, '/').replace('T', ' ').replace('Z', '');
+        // date2 = Date.parse(date2);
+        // date2 = new Date(date2);
+        // date2 = date2.toShortFormat();
+        var date2=dateformat(anyDate);
         var img= place.indexOf(data[i].dest);
        
         hist.innerHTML +=
@@ -95,21 +96,27 @@ function appendHistory(data) {
 }
 
 
-Date.prototype.toShortFormat = function () {
+// Date.prototype.toShortFormat = function () {
 
-    const monthNames = ["Jan", "Feb", "Mar", "Apr",
-        "May", "Jun", "Jul", "Aug",
-        "Sep", "Oct", "Nov", "Dec"];
+//     const monthNames = ["Jan", "Feb", "Mar", "Apr",
+//         "May", "Jun", "Jul", "Aug",
+//         "Sep", "Oct", "Nov", "Dec"];
 
-    const day = this.getDate();
+//     const day = this.getDate();
 
-    const monthIndex = this.getMonth();
-    const monthName = monthNames[monthIndex];
+//     const monthIndex = this.getMonth();
+//     const monthName = monthNames[monthIndex];
 
-    const year = this.getFullYear();
+//     const year = this.getFullYear();
 
-    var yr = JSON.stringify(year);
-    yr = yr.slice(2, 4);
-    yr = Number(yr);
-    return `${day}-${monthName}-${yr}`;
+//     var yr = JSON.stringify(year);
+//     yr = yr.slice(2, 4);
+//     yr = Number(yr);
+//     return `${day}-${monthName}-${yr}`;
+// }
+
+function dateformat(date){
+    var d=JSON.stringify(date);
+    d2=d.slice(1,8)+d.slice(10,12);
+    return d2;
 }
