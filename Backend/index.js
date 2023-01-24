@@ -209,6 +209,36 @@ app.post("/places", async (req, res) => {
   }
 });
 
+//function to get travel history of a person
+app.post("/thistory", async (req, res) => {
+  try {
+    console.log(res.body);
+    var email = req.body.email;
+    var tim = req.body.time;
+    var dat = req.body.date;
+    db.query(
+      `select cr.chatRoom_id,DATE_FORMAT(date,'%d-%b-%Y') as date,travel_Time,dest,jstart,No_of_person,room_name,travel_status
+      from chatroom cr , chatgroup cg where 
+      cr.chatRoom_id=cg.chatRoom_id and  cg.Email=? and 
+      cr.chatRoom_id not in
+      (select cr2.chatRoom_id
+      from chatroom cr2 where
+      cr2.travel_time>? and date=? )
+      order by date desc ,travel_Time desc;`,
+      [email,tim,dat],(err, result) => {
+        if (err) {
+          console.log(err.sqlMessage);
+          res.status(102).send(new Error(err.sqlMessage));
+        } else {
+          res.send(result);
+        }
+      }
+    );
+  } catch (error) {
+    res.status(102).send(new Error(error));
+  }
+});
+
 // CHAT CODE
 
 const path = require("path");
@@ -242,6 +272,7 @@ var io = require("socket.io")(server, {
   cors: {
     origin: [
       "http://127.0.0.1:5501",
+      "http://127.0.0.1:5502",
       "https://jigovind556.github.io",
       "http://127.0.0.1:3001",
     ],
