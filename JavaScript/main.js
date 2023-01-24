@@ -171,14 +171,21 @@ function checkCookie() {
   if (user != "") {
     User = JSON.parse(user);
     var button2 = document.getElementById("Submit_buttons");
-    var nav = document.getElementById("navbar");
-    nav.innerHTML += `<li><a href="myaccount.html"><i class="fa-solid fa-user"></i></a></li>`;
-    var button = document.getElementById("signinButton");
-    button.innerHTML += `<button id="logout" onclick="logout()">Logout</button>`;
+    var nav = document.getElementById("tophead");
+    nav.innerHTML += `<div id="menu" onclick="onClickMenu()">
+          <div id="bar1" class="bar"></div>
+          <div id="bar2" class="bar"></div>
+          <div id="bar3" class="bar"></div>
+        </div> `;
+    // var button = document.getElementById("signinButton");
+    // button.innerHTML += `<button id="logout" onclick="logout()">Logout</button>`;
     button2.innerHTML += `<button id="submit" onclick="submitData()">Submit</button>`;
   } else {
-    var button = document.getElementById("signinButton");
-    button.innerHTML = `<button id="login" onclick="login()">Login</button>`;
+    var nav = document.getElementById("tophead");
+    nav.innerHTML += `<button id="signinButton" onclick="login()">Login</button> `;
+
+    // var button = document.getElementById("login_status");
+    // button.innerHTML = `Login`;
   }
 }
 function accessCookie(cname) {
