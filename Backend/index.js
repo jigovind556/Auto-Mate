@@ -155,6 +155,7 @@ app.post("/updtuser", async (req, res) => {
         }
       );
     }
+    
     else if(name == "" && Mob!=""){
       db.query(
         `update user set Mobile_no=? where Email=?;`,[Mob,email],
