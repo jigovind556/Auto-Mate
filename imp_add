@@ -1,0 +1,6 @@
+.fa-user:before{
+    content: "\f007";
+    top: 6.5vh;
+    left: 33.9vw;
+    position: absolute;
+}

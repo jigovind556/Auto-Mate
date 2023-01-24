@@ -1,0 +1,26 @@
+.chat{
+    background-color: rgba(163, 222, 74, 0.626);
+    border-radius: 1rem;
+    display: flex;
+}
+#grpicon{
+    padding-top: 10px;
+    padding-left: 10px;
+}
+.grpinfo{
+    padding-left: 12px;
+    text-align:left ;
+}
+#number{
+    padding-top: 70px;
+    padding-left: 50px;
+}
+.fa-users{
+    color: rgb(23, 11, 117);
+}
+#grpname{
+    font-family: Copperplate, Papyrus, fantasy;
+}
+.loc{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
