@@ -290,9 +290,7 @@ var io = require("socket.io")(server, {
 // const PORT = 3000 || process.env.port;
 
 //Set static folder
-app.use(
-  "/chat",
-  express.static(path.join(__dirname, "../chat"), async (req, res) => {
+app.use(express.static(path.join(__dirname, "../"), async (req, res) => {
     try {
       let result = await collection.findOne({ room_name: req.query.room_name });
       res.send(result);
