@@ -408,8 +408,8 @@ io.on("connection", (socket) => {
 
       //Finding previous history
       collection.findOne({ room_name: room }).then((msg) => {
-        // filter.clean(msg)
-        socket.emit("output-message", formatMessage(user.username,msg));
+        var filter_msg = filter.clean(msg);
+        socket.emit("output-message", formatMessage(user.username,filter_msg));
       });
 
       //Welcome connect user
