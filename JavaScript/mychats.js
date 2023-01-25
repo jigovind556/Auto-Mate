@@ -123,19 +123,28 @@ function enterchat(chatid) {
 }
 
 function deleteChat(chatid,pwy) {
-  var Server2 = Server + "/deletechat";
-  var data = {
-    email: User.id,
-    chatid: chatid,
-    pwy:pwy
-  };
-
-  axios
-    .post(Server2, data)
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  if (confirm("Confirm to delete")) {
+   
+    var Server2 = Server + "/deletechat";
+    var data = {
+      email: User.id,
+      chatid: chatid,
+      pwy:pwy
+    };
+  
+    axios
+      .post(Server2, data)
+      .then((res) => {
+        console.log(res.data);
+        if(res.data=="success"){
+          window.location.href="mychats.js";
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+   console.log("You pressed Cancel!");
+  }
+ 
 }
