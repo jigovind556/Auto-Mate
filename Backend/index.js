@@ -277,6 +277,7 @@ var io = require("socket.io")(server, {
       "http://127.0.0.1:5502",
       "https://jigovind556.github.io",
       "http://127.0.0.1:3001",
+      "http://43.205.206.153:3001"
     ],
   },
 });
