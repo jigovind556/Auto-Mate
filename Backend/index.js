@@ -254,7 +254,7 @@ app.post("/activechat", async (req, res) => {
       cr.chatRoom_id not in
       (select cr2.chatRoom_id
       from chatroom cr2 where
-      cr2.travel_time<? and cr2.date=? )
+      cr2.travel_time<SUBTIME(?, 003000) and cr2.date=? )
       order by date asc ,travel_Time asc;`,
       [email,dat,tim,dat],(err, result) => {
         if (err) {
@@ -448,7 +448,7 @@ io.on("connection", (socket) => {
 
       //Listen for  chatMessage
       socket.on("chatMessage", ({ msg, username }) => {
-        const time = moment().format("h:mm a");
+        const time = moment().utcOffset("+05:30").format("h:mm a");
         collection.updateOne(
           { room_name: socket.activeRoom },
           {
