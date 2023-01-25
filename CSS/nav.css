@@ -70,3 +70,31 @@
     justify-content: center;
   
   }
+  @media(max-width: 377px){
+    .change{
+      background-color: #E5E0FF;
+      margin: 0;
+    height: 40vh;
+      margin-top:84px;
+      margin-right: 20px;
+      position:fixed;
+      font-size: 18px;
+      top:80px;
+      right: 30px;
+      border-radius: 10px;
+      /* z-index: 10; */
+      width: 24%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    
+    }
+    .nav{
+      padding: 100px;
+      margin: 0 20px;
+      transition: 1s ease;
+      /* display: none; */
+    }
+
+  }

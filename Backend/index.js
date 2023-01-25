@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 const moment = require("moment");
+const request = require('request');
 
 const db = mysql.createConnection({
   user: "root",
@@ -337,6 +338,7 @@ const {
 // const cors = require('cors');
 // const dotenv = require('dotenv').config();
 const { MongoClient } = require("mongodb");
+const { url } = require("inspector");
 
 const client = new MongoClient(
   "mongodb+srv://aeromodelling-signup:Shivam114@cluster0.skf6mst.mongodb.net/auto-mate?retryWrites=true&w=majority"
@@ -356,9 +358,11 @@ var io = require("socket.io")(server, {
       "http://127.0.0.1:5502",
       "https://jigovind556.github.io",
       "http://127.0.0.1:3001",
+      "http://43.205.206.153:3001"
     ],
   },
 });
+
 // const io = require("socket.io")(server, {
 //   allowRequest: (req, callback) => {
 //     const noOriginHeader = req.headers.origin === undefined;
@@ -368,9 +372,7 @@ var io = require("socket.io")(server, {
 // const PORT = 3000 || process.env.port;
 
 //Set static folder
-app.use(
-  "/chat",
-  express.static(path.join(__dirname, "../chat"), async (req, res) => {
+app.use(express.static(path.join(__dirname, "../"), async (req, res) => {
     try {
       let result = await collection.findOne({ room_name: req.query.room_name });
       res.send(result);
@@ -569,7 +571,9 @@ io.on("connection", (socket) => {
   });
 });
 
-// these codes are for main page
+// Google Calender Api Integration 
+
+
 
 //
 
