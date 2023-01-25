@@ -126,7 +126,7 @@ body, html {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width:65%;
+  width:400px;
   height: 700px;
   /* z-index: 2; */
   box-sizing: border-box;
