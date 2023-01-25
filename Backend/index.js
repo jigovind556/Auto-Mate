@@ -408,8 +408,8 @@ io.on("connection", (socket) => {
 
       //Finding previous history
       collection.findOne({ room_name: room }).then((msg) => {
-        filter.clean(msg)
-        socket.emit("output-message", formatMessage(user.username,filter_msg));
+        // filter.clean(msg)
+        socket.emit("output-message", formatMessage(user.username,msg));
       });
 
       //Welcome connect user
@@ -455,6 +455,7 @@ io.on("connection", (socket) => {
       //Listen for  chatMessage
       socket.on("chatMessage", ({ msg, username }) => {
         const time = moment().utcOffset("+05:30").format("h:mm a");
+        filter_msg = filter.clean(msg)
         collection.updateOne(
           { room_name: socket.activeRoom },
           {
