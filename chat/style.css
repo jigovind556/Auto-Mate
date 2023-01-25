@@ -13,7 +13,7 @@ body, html {
   position: absolute;
   top: 50%;
   left: calc(50% + 12rem);
-  transform: translate(-50%, -50%);
+  transform: translate(-90%, -50%);
 }
 
 .pic {
@@ -61,6 +61,7 @@ body, html {
 }
 
 .contacts {
+  display: none;
   position: absolute;
   top: 50%;
   left: 0;
