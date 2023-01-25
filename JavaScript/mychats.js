@@ -74,10 +74,11 @@ function appendchat(data) {
         <div id="grpicon">
           <img src="IMG/grpicon.png" height="50px" width="50px" />
         </div>
+        <div class="container1">
         <div class="grpinfo" onclick="enterchat('` +
       data[i].chatRoom_id +
       `')">
-          <h3 id="grpname">Group Name</h3>
+          <h3 id="grpname">`+data[i].room_name+`</h3>
           <p class="loc">
             To<img src="IMG/locpin.png" height="20px" width="20px" />: ` +
       data[i].dest +
@@ -86,7 +87,7 @@ function appendchat(data) {
           <p class="loc">From : ` +
       data[i].jstart +
       `</p>
-          <i class="fa-solid fa-users"> ` +
+          <i class="fa-solid fa-car"> ` +
       data[i].pwy +
       `</i>
           <p class="loc">Time : ` +
@@ -98,7 +99,8 @@ function appendchat(data) {
       </div>
       <button onclick="deleteChat('` +
   data[i].chatRoom_id +
-  `','`+data[i].pwy+`')">delete chat</button>
+  `','`+data[i].pwy+`')">Delete Chat</button>
+  </div>
         <div id="number">
           <i class="fa-solid fa-users"> ` +
       data[i].No_of_person +

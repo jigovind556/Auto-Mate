@@ -1,7 +1,10 @@
 .chat{
-    background-color: rgba(163, 222, 74, 0.626);
+    /* background-color: rgba(163, 222, 74, 0.626); */
+    background-color: #FBFACD;
     border-radius: 1rem;
     display: flex;
+    border-radius: 20px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
 }
 #grpicon{
     padding-top: 10px;
@@ -12,8 +15,9 @@
     text-align:left ;
 }
 #number{
-    padding-top: 70px;
-    padding-left: 50px;
+    padding-top: 38px;
+    padding-right: 30px;
+    /* margin-right: 30px; */
 }
 .fa-users{
     color: rgb(23, 11, 117);
@@ -23,4 +27,28 @@
 }
 .loc{
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    /* padding: 2px; */
+}
+#chats button{
+    height: 40px;
+    width: 120px;
+    padding: 10px;
+    /* margin-top: 20rem; */
+    /* margin-left: 2rem; */
+    color: white;
+    
+    border-color: #357C3C;
+    background: #357C3C;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    /* box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white; */
+    box-shadow: 6px 6px 7px #B6EADA;
+    transition: 0.5s;
+}
+#chats button:hover{
+    box-shadow: none;
+}
+.container1{
+    padding: 10px;
 }
