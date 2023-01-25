@@ -382,6 +382,11 @@ app.use(express.static(path.join(__dirname, "../"), async (req, res) => {
   })
 );
 
+var Filter = require('bad-words'),
+filter = new Filter();
+filter.addWords('bsdk', 'gandu', 'randi');
+
+
 //Run when client connect
 io.on("connection", (socket) => {
   //
@@ -403,7 +408,7 @@ io.on("connection", (socket) => {
 
       //Finding previous history
       collection.findOne({ room_name: room }).then((msg) => {
-        socket.emit("output-message", formatMessage(user.username, msg));
+        socket.emit("output-message", formatMessage(user.username, filter.clean(msg)));
       });
 
       //Welcome connect user
@@ -448,19 +453,20 @@ io.on("connection", (socket) => {
 
       //Listen for  chatMessage
       socket.on("chatMessage", ({ msg, username }) => {
+        var filter_msg = filter.clean(msg);
         const time = moment().utcOffset("+05:30").format("h:mm a");
         collection.updateOne(
           { room_name: socket.activeRoom },
           {
             $push: {
-              message: { username, msg, time },
+              message: { username, filter_msg, time },
             },
           }
         );
 
         const user = getCurrentUser(socket.id);
 
-        io.to(user.room).emit("message", formatMessage(user.username, msg));
+        io.to(user.room).emit("message", formatMessage(user.username, filter_msg));
       });
     } catch (e) {
       console.error(e);
