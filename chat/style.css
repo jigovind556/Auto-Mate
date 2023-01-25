@@ -126,13 +126,14 @@ body, html {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 400px;
-  height: 650px;
+  width:65%;
+  height: 700px;
   /* z-index: 2; */
   box-sizing: border-box;
   border-radius: 20px;
   /* background: white; */
   box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+  margin-top: 50vh;
   
 }
 .chat .contact.bar {
@@ -294,4 +295,11 @@ body, html {
 
 .pic.rogers {
   background-image: url("https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/7/7c/Cap.America_%28We_Don%27t_Trade_Lives_Vision%29.png");
+}
+
+@media (max-width: 400px) {
+  .chat{
+    width: 100vw;
+    margin-top: 30vh;
+  }
 }
