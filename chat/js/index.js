@@ -124,20 +124,30 @@ chatForm.addEventListener("submit", (e) => {
 
 function outputMessage(message) {
   const div = document.createElement("div");
-  div.classList.add("message");
+
+  document.getElementById("chat").appendChild(div);
+  if (message.username != User.id) {
+    div.classList.add("message", "stark");
+    div.innerHTML = `<div class="user_detail">
+    <p class="user_name">${message.username}</p>
+    <p class="chat_time">${message.time}</p> 
+    </div>
+    ${message.text}`;
+
+    let showNotification = document.visibilityState !== "visible";
+    if (showNotification) {
+      // Notification code
+      noti(message.text);
+    }
+  }
+  else{
+    div.classList.add("message","parker");
   div.innerHTML = `<div class="user_detail">
     <p class="user_name">${message.username}</p>
     <p class="chat_time">${message.time}</p> 
   </div>
   ${message.text}`;
 
-  document.getElementById("chat").appendChild(div);
-  if (message.username != User.id) {
-    let showNotification = document.visibilityState !== "visible";
-    if (showNotification) {
-      // Notification code
-      noti(message.text);
-    }
   }
 }
 
@@ -150,12 +160,32 @@ function outputRoomName(room) {
 function outputMessageOld(message) {
   console.log(message);
   const div = document.createElement("div");
-  div.classList.add("message");
+//   div.classList.add("message");
+//   div.innerHTML = `<div class="user_detail">
+//   <p class="user_name">${message.username}</p>
+//   <p class="chat_time">${message.time}</p> 
+// </div>
+// ${message.msg}`;
+
+// document.getElementById("chat").appendChild(div);
+if (message.username != User.id) {
+  div.classList.add("message", "stark");
   div.innerHTML = `<div class="user_detail">
+  <p class="user_name">${message.username}</p>
+  <p class="chat_time">${message.time}</p> 
+  </div>
+  ${message.msg}`;
+
+}
+else{
+  div.classList.add("message","parker");
+div.innerHTML = `<div class="user_detail">
   <p class="user_name">${message.username}</p>
   <p class="chat_time">${message.time}</p> 
 </div>
 ${message.msg}`;
+
+}
 
   document.getElementById("chat").appendChild(div);
 }
