@@ -448,7 +448,7 @@ io.on("connection", (socket) => {
 
       //Listen for  chatMessage
       socket.on("chatMessage", ({ msg, username }) => {
-        const time = moment().format("h:mm a");
+        const time = moment().utcOffset("+05:30").format("h:mm a");
         collection.updateOne(
           { room_name: socket.activeRoom },
           {
