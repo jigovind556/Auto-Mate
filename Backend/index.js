@@ -18,11 +18,6 @@ const db = mysql.createConnection({
   multipleStatements: true,
 });
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  next();
-});
-
 // to get user info for signup page
 app.post("/getUser",async (req, res) => {
   try {
@@ -281,10 +276,11 @@ var io = require("socket.io")(server, {
       "http://127.0.0.1:5501",
       "http://127.0.0.1:5502",
       "http://127.0.0.1:3001",
-      request({url : "https://jigovind556.github.io",})
+      "https://jigovind556.github.io",
     ],
   },
 });
+
 // const io = require("socket.io")(server, {
 //   allowRequest: (req, callback) => {
 //     const noOriginHeader = req.headers.origin === undefined;
