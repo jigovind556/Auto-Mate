@@ -262,6 +262,7 @@ const {
 // const cors = require('cors');
 // const dotenv = require('dotenv').config();
 const { MongoClient } = require("mongodb");
+const { url } = require("inspector");
 
 const client = new MongoClient(
   "mongodb+srv://aeromodelling-signup:Shivam114@cluster0.skf6mst.mongodb.net/auto-mate?retryWrites=true&w=majority"
@@ -277,12 +278,10 @@ const server = http.createServer(app);
 var io = require("socket.io")(server, {
   cors: {
     origin: [
-      request({
-      url :"http://127.0.0.1:5501",
-      url : "http://127.0.0.1:5502",
-      url : "https://jigovind556.github.io",
-      url :"http://127.0.0.1:3001"}
-      )
+      "http://127.0.0.1:5501",
+      "http://127.0.0.1:5502",
+      "http://127.0.0.1:3001",
+      request({url : "https://jigovind556.github.io",})
     ],
   },
 });
