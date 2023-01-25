@@ -33,7 +33,7 @@ function accessCookie(cname) {
 getHistory();
 
 function getHistory() {
-    console.log("hello");
+    // console.log("hello");
     var Server2 = Server + "/thistory";
     var d = new Date();
     var date = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();

@@ -240,6 +240,87 @@ app.post("/thistory", async (req, res) => {
   }
 });
 
+//function to get active chats of a person
+app.post("/activechat", async (req, res) => {
+  try {
+    console.log(req.body);
+    var email = req.body.email;
+    var tim = req.body.time;
+    var dat = req.body.date;
+    db.query(
+      `select cr.chatRoom_id,DATE_FORMAT(date,'%d-%b-%Y') as date,travel_Time,dest,jstart,No_of_person,room_name,nop_with_you as pwy
+      from chatroom cr , chatgroup cg where 
+      cr.chatRoom_id=cg.chatRoom_id and  cg.Email=? and cr.date>=? and 
+      cr.chatRoom_id not in
+      (select cr2.chatRoom_id
+      from chatroom cr2 where
+      cr2.travel_time<? and cr2.date=? )
+      order by date asc ,travel_Time asc;`,
+      [email,dat,tim,dat],(err, result) => {
+        if (err) {
+          console.log(err.sqlMessage);
+          res.status(102).send(new Error(err.sqlMessage));
+        } else {
+          res.send(result);
+        }
+      }
+    );
+  } catch (error) {
+    res.status(102).send(new Error(error));
+  }
+});
+
+// function delete chat
+app.post("/deletechat", async (req, res) => {
+  try {
+    console.log(req.body);
+    var email = req.body.email;
+    var chatid= req.body.chatid;
+    var pwy = req.body.pwy;
+    db.query(
+      `select No_of_person from chatroom where chatRoom_id=?;`,
+      [chatid],(err, result) => {
+        if (err) {
+          console.log(err.sqlMessage);
+          res.status(102).send(new Error(err.sqlMessage));
+        } else {
+          console.log(result[0].No_of_person==pwy);
+          if(result[0].No_of_person==pwy){
+            db.query(
+              `delete from chatroom where chatRoom_id=?;`,
+              [chatid],(err, result) => {
+                if (err) {
+                  console.log(err.sqlMessage);
+                  res.status(102).send(new Error(err.sqlMessage));
+                } else {
+                  res.send("success");
+                }
+              }
+            );
+          }
+          else{
+            db.query(
+              `update chatroom set No_of_person = No_of_person-? where chatroom_id=?;
+              delete from chatgroup where email=? and chatroom_id=?;`,
+              [pwy,chatid,email,chatid],(err, result) => {
+                if (err) {
+                  console.log(err.sqlMessage);
+                  res.status(102).send(new Error(err.sqlMessage));
+                } else {
+                  res.send("success");
+                }
+              }
+            );
+          }
+          
+        }
+      }
+    );
+  } catch (error) {
+    res.status(102).send(new Error(error));
+  }
+});
+
 // CHAT CODE
 
 const path = require("path");
