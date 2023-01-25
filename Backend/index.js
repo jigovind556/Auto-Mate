@@ -460,7 +460,7 @@ io.on("connection", (socket) => {
           { room_name: socket.activeRoom },
           {
             $push: {
-              message: { username, msg, time },
+              message: { username, filter_msg, time },
             },
           }
         );
