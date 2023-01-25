@@ -122,7 +122,7 @@ function check_mates() {
 // tomorrow("2021-4-30")
 
 socket.on("receive_message", (message) => {
-  console.log(message.length);
+  console.log(message);
   var mate = document.getElementById("Matebox");
   mate.innerHTML = "";
   if (message.length == 0) {
