@@ -1,0 +1,35 @@
+ /* preloader */
+
+
+ .loader{
+    position:fixed;
+    z-index: 1;
+    display: flex;
+    height: 100vh;
+    align-items: center;
+  }
+  .loader div{
+    background: red;
+    width: 12px;
+    height: 24px;
+    margin-left: 10px;
+    animation: loader 1.2s infinite;
+  }
+  
+  @keyframes loader{
+    50%{
+      height: 64px;
+    }
+  }
+  .loader div:nth-child(1){
+    background: #A6BB8D;
+    animation-delay: -0.40s;
+  }
+  .loader div:nth-child(2){
+    background: #61876E;
+    animation-delay: -0.20s;
+  }
+  .loader div:nth-child(3){
+    background: #3C6255;
+    animation-delay: 0s;
+  }

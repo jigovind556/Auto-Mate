@@ -33,6 +33,7 @@
       /* position: absolute; */
       width: 400px;
       /* height: 700px; */
+      min-height: 650px;
   
       border-radius: 20px;
       padding: 40px;
