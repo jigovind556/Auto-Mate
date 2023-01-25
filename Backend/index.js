@@ -408,7 +408,7 @@ io.on("connection", (socket) => {
 
       //Finding previous history
       collection.findOne({ room_name: room }).then((msg) => {
-        socket.emit("output-message", formatMessage(user.username, msg));
+        socket.emit("output-message", formatMessage(user.username,msg));
       });
 
       //Welcome connect user
