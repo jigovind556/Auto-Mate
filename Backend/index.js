@@ -408,7 +408,8 @@ io.on("connection", (socket) => {
 
       //Finding previous history
       collection.findOne({ room_name: room }).then((msg) => {
-        socket.emit("output-message", formatMessage(user.username,msg));
+        filter.clean(msg)
+        socket.emit("output-message", formatMessage(user.username,filter_msg));
       });
 
       //Welcome connect user
@@ -453,13 +454,12 @@ io.on("connection", (socket) => {
 
       //Listen for  chatMessage
       socket.on("chatMessage", ({ msg, username }) => {
-        var filter_msg = filter.clean(msg);
         const time = moment().utcOffset("+05:30").format("h:mm a");
         collection.updateOne(
           { room_name: socket.activeRoom },
           {
             $push: {
-              message: { username, filter_msg, time },
+              message: { username, msg, time },
             },
           }
         );
