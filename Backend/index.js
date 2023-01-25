@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 const moment = require("moment");
+const request = require('request');
 
 const db = mysql.createConnection({
   user: "root",
@@ -15,6 +16,11 @@ const db = mysql.createConnection({
   password: "Shivam114",
   database: "auto_mate",
   multipleStatements: true,
+});
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
 });
 
 // to get user info for signup page
@@ -271,10 +277,12 @@ const server = http.createServer(app);
 var io = require("socket.io")(server, {
   cors: {
     origin: [
+      request(
       "http://127.0.0.1:5501",
       "http://127.0.0.1:5502",
       "https://jigovind556.github.io",
-      "http://127.0.0.1:3001",
+      "http://127.0.0.1:3001"
+      )
     ],
   },
 });
