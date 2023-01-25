@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Auto-mate - chat</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css'><link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-  
-<!-- partial:index.partial.html -->
-<div class="center">
-  <div class="contacts" id="user_list">
-    <i class="fas fa-bars fa-2x"></i>
-    <h2>
-      Mates
-    </h2>
-    <!-- <div class="contact">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Auto-mate - chat</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- <div class="container"> -->
+      <!-- partial:index.partial.html -->
+      <!-- <div class="center"> -->
+        <!-- <div class="contacts" id="user_list">
+          <i class="fas fa-bars fa-2x"></i>
+          <h2>Mates</h2>-->
+          <!-- <div class="contact">
       <div class="pic rogers"></div>
       <div class="badge">
         14
@@ -59,80 +63,83 @@
         I like this one
       </div>
     </div> -->
-    <div class="contact">
-      <div class="pic danvers"></div>
-      <div class="badge">
-        2
-      </div>
-      <div class="name">
-        Carol Danvers
-      </div>
-      <div class="message">
-        Hey Peter Parker, you got something for me?
-      </div>
-    </div>
-  </div>
-  <div class="chat">
-    <div class="contact bar">
-      <div class="pic stark"></div>
-      <div class="name" id="room_name">
-        Tony Stark
-      </div>
-      <div class="seen">
-        Today at 12:56
-      </div>
-    </div>
-    <div class="messages" id="chat">
-      <!-- <div class="time">
+          <!-- <div class="contact">
+            <div class="pic danvers"></div>
+            <div class="badge">2</div>
+            <div class="name">Carol Danvers</div>
+            <div class="message">
+              Hey Peter Parker, you got something for me?
+            </div>
+          </div> -->
+        <!-- </div>  -->
+        <div class="chat">
+          <div class="contact bar">
+            <div class="pic stark"></div>
+            <div class="name" id="room_name">Tony Stark</div>
+            <div class="seen">Today at 12:56</div>
+          </div>
+          <div class="messages" id="chat">
+            <!-- <div class="time">
         Today at 11:41
       </div> -->
-      <!-- <div class="message parker">
+            <!-- <div class="message parker">
         <div class="user_detail">
           <p class="user_name">User</p>
           <p class="chat_time">4:50 PM</p> 
         </div>
         Hey, man! What's up, Mr Stark? 👋
       </div> -->
-      <!-- <div class="message stark">
+            <!-- <div class="message stark">
         <div class="user_detail">
           <span class="user_name">User</span>
           <p class="chat_time"></p> 
         </div>
         Kid, where'd you come from? 
       </div> -->
-      <!-- <div class="message parker">
+            <!-- <div class="message parker">
         <div class="user_detail">
           <span class="user_name">User</span>
           <p class="chat_time"></p> 
         </div>
       </div> -->
-      <!-- <div class="message parker">
+            <!-- <div class="message parker">
         Uh, what is this guy's problem, Mr. Stark? 🤔
       </div> -->
-      <!-- <div class="message stark">
+            <!-- <div class="message stark">
         Uh, he's from space, he came here to steal a necklace from a wizard.
       </div> -->
-      <!-- <div class="message stark">
+            <!-- <div class="message stark">
         <div class="typing typing-1"></div>
         <div class="typing typing-2"></div>
         <div class="typing typing-3"></div>
       </div> -->
-    </div>
-    <div class="input">
-      <i class="fas fa-camera"></i><i class="far fa-laugh-beam"></i>
-      <form action="" id="chat-form">
-        <input id="msg" placeholder="Type your message here!" type="text" />
-        <input type="submit" hidden />
-      </form>
-      <i class="fas fa-microphone"></i>
-    </div>
-  </div>
-</div>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script><script  src="./script.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.11.0/qs.min.js" integrity="sha512-/l6vieC+YxaZywUhmqs++8uF9DeMvJE61ua5g+UK0TuHZ4TkTgB1Gm1n0NiA86uEOM9JJ6JUwyR0hboKO0fCng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-  <script src="../JavaScript/apple.js"></script>
-  <script src="js/index.js"></script>
-</body>
+          </div>
+          <div class="input">
+            <i class="fas fa-camera"></i><i class="far fa-laugh-beam"></i>
+            <form action="" id="chat-form">
+              <input
+                id="msg"
+                placeholder="Type your message here!"
+                type="text"
+              />
+              <input type="submit" hidden />
+            </form>
+            <i class="fas fa-microphone"></i>
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
+    <!-- partial -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./script.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.11.0/qs.min.js"
+      integrity="sha512-/l6vieC+YxaZywUhmqs++8uF9DeMvJE61ua5g+UK0TuHZ4TkTgB1Gm1n0NiA86uEOM9JJ6JUwyR0hboKO0fCng=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="../JavaScript/apple.js"></script>
+    <script src="js/index.js"></script>
+  </body>
 </html>

@@ -6,39 +6,15 @@ body, html {
   letter-spacing: 0.025em;
   color: #333;
   background: #F7F7F7;
-
-  display: flex;
-    align-items: center;
-    justify-content: center;
-    place-items: center;
   /* align-items: center; */
-  
 }
-.container{
-  /* display: flex;
-  justify-content: center; */
-  /* align-items: center; */
-  width: 400px;
-  height: 700px;
 
-  border-radius: 20px;
-  padding: 40px;
-  padding-top: 20px;
-
-  position: relative; 
-  /* display: flex; */
-    /* align-items: center;
-    justify-content: center;
-    place-items: center;
-    overflow: hidden; */
-} 
-
-/* .center {
+.center {
   position: absolute;
   top: 50%;
   left: calc(50% + 12rem);
   transform: translate(-90%, -50%);
-} */
+}
 
 .pic {
   width: 4rem;
@@ -126,14 +102,13 @@ body, html {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 400px;
-  height: 650px;
-  /* z-index: 2; */
+  width: 24rem;
+  height: 38rem;
+  z-index: 2;
   box-sizing: border-box;
-  border-radius: 20px;
+  border-radius: 1rem;
   /* background: white; */
-  box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
-  
+  box-shadow: 0 0 8rem 0 rgba(0, 0, 0, 0.1), 0rem 2rem 4rem -3rem rgba(0, 0, 0, 0.5);
 }
 .chat .contact.bar {
   flex-basis: 3.5rem;
