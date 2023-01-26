@@ -34,19 +34,17 @@
     font-size:18px ;
     font-weight: 500;
 }
-.members{
-    display: flex;
-    align-content: space-around;
-}
-.member{
+
+/*.member{
     text-align: left;
     background-color: rgba(240, 248, 255, 0.771);
     border-radius: 1rem;
     padding-left: 10px;
     padding-top: 2px;
     padding-bottom: 5px;
-    width: 45%;
-}
+    
+    /*display: flex;*/
+}*/
 li{
     font-style: italic;
 }
@@ -54,4 +52,45 @@ hr{
     border-top: 2px dotted rgb(171, 255, 133);
     border-left: 2px dotted rgb(171, 255, 133);
     /*background: dotted green;*/
+}
+.fa-linkedin{
+    padding-left: 30px;
+    color:#0A66C2;
+    font-size: 22px;
+    padding-right: 3px;
+}
+.fa-envelope{
+    color:rgb(255, 106, 0);
+}
+.fa-angle-double-right{
+    color:rgb(30, 154, 181);
+}
+.box{
+    display: flex;
+    align-items: center;
+}
+.detail{
+    width: 60%;
+    text-align: left;
+}
+.pic{
+    text-align: center;
+    padding-left: 3px;
+}
+.box{
+    padding: 15px;
+    padding-right: 8px;
+    background-color:rgba(240, 248, 255, 0.749);
+    box-shadow: 5px 5px 5px white;
+    border-radius: 0.7rem;
+}
+.fa-github,.fa-envelope{
+    font-size: 22px;
+    padding: 3px;
+}
+.fa-github{
+    color: black;
+}
+img{
+    border-radius: 50%;
 }
