@@ -396,9 +396,13 @@ io.on("connection", (socket) => {
 
       if (!result) {
         await collection.insertOne({
+          DateTime: new Date(),
           room_name: room,
           messages: [],
           username: username,
+        },
+        {
+          expireAfterSeconds: 3600
         });
       }
 
@@ -462,7 +466,7 @@ io.on("connection", (socket) => {
             $push: {
               message: { username, msg, time },
             },
-          }
+          },
         );
 
         const user = getCurrentUser(socket.id);
