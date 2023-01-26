@@ -35,16 +35,21 @@
     font-weight: 500;
 }
 
-/*.member{
+/* .member{
     text-align: left;
     background-color: rgba(240, 248, 255, 0.771);
     border-radius: 1rem;
     padding-left: 10px;
     padding-top: 2px;
     padding-bottom: 5px;
-    
-    /*display: flex;*/
-}*/
+} */
+
+.team_box{
+    overflow-y: auto;
+    display: flex;
+    flex-direction: row;
+}
+
 li{
     font-style: italic;
 }
@@ -65,10 +70,7 @@ hr{
 .fa-angle-double-right{
     color:rgb(30, 154, 181);
 }
-.box{
-    display: flex;
-    align-items: center;
-}
+
 .detail{
     width: 60%;
     text-align: left;
@@ -78,11 +80,15 @@ hr{
     padding-left: 3px;
 }
 .box{
+    display: flex;
+    align-items: center;
     padding: 15px;
     padding-right: 8px;
     background-color:rgba(240, 248, 255, 0.749);
     box-shadow: 5px 5px 5px white;
     border-radius: 0.7rem;
+    margin-left: 20px;
+    margin-bottom: 20px;
 }
 .fa-github,.fa-envelope{
     font-size: 22px;
