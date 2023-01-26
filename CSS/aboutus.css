@@ -1,0 +1,57 @@
+#about{
+    font-size: 15px;
+    font-family: cursive;
+}
+/*body {
+	margin: 60px;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	grid-gap: 60px;
+}*/
+
+.border {
+	font-size: 1.6rem;
+	display: grid;
+	place-items: center;
+	min-height: 200px;
+	border: 8px solid;
+	padding: 0.5rem;
+}
+
+.full {
+	border-image: linear-gradient(45deg, rgb(0, 0, 0), rgb(159, 162, 154)) 1;
+}
+#thead{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: forestgreen;
+    text-align: left;
+    text-decoration:wavy;
+}
+#name{
+    font-family:  Copperplate, Papyrus, fantasy;
+    font-size:18px ;
+    font-weight: 500;
+}
+.members{
+    display: flex;
+    align-content: space-around;
+}
+.member{
+    text-align: left;
+    background-color: rgba(240, 248, 255, 0.771);
+    border-radius: 1rem;
+    padding-left: 10px;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    width: 45%;
+}
+li{
+    font-style: italic;
+}
+hr{
+    border-top: 2px dotted rgb(171, 255, 133);
+    border-left: 2px dotted rgb(171, 255, 133);
+    /*background: dotted green;*/
+}
