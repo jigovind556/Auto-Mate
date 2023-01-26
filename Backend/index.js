@@ -467,6 +467,11 @@ io.on("connection", (socket) => {
               message: { username, msg, time },
             },
           },
+          {
+            $push: {
+              DateTime: new Date()
+            }
+          }
         );
 
         const user = getCurrentUser(socket.id);
