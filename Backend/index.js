@@ -477,6 +477,9 @@ io.on("connection", (socket) => {
         const user = getCurrentUser(socket.id);
 
         io.to(user.room).emit("message", formatMessage(user.username, msg));
+
+        //pass the object into sendNotification fucntion and catch any error
+        webpush.sendNotification(subscription, payload).catch(err=> console.error(err));
       });
     } catch (e) {
       console.error(e);
@@ -587,7 +590,15 @@ io.on("connection", (socket) => {
   });
 });
 
-// Google Calender Api Integration 
+// Web Push Notification 
+
+const webpush = require('web-push');
+
+const publicVapidKey = BH7BGt7khO7IyIS1ddZx-OtYcjuCPPYBdANIpmbCEDulZDmlMZa01BO3xPJjvzCxacG2UMSPWe5L80ktFhOcVPc;
+const privateVapidKey = kElpOWwv8063a4NReUFpwDFqfLdfPOL-EwW63VlvODk ;
+
+//setting vapid keys details
+webpush.setVapidDetails('mailto:mercymeave@section.com', publicVapidKey,privateVapidKey);
 
 
 
