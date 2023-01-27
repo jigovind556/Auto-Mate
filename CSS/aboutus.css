@@ -1,7 +1,10 @@
 #about{
     font-size: 15px;
-    font-family: cursive;
+    font-family: 'Lovelo Line Bold';
+  src: url('../assets/fonts/Lovelo_Line_Bold.otf');
+    
 }
+
 /*body {
 	margin: 60px;
 	display: grid;
@@ -45,8 +48,8 @@
 } */
 
 .team_box{
-    overflow-y: auto;
-    display: flex;
+    /* overflow-y: auto; */
+    display: grid;
     flex-direction: row;
 }
 
