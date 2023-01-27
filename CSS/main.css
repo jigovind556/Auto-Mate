@@ -356,6 +356,12 @@ margin: 2px 15px;
   box-shadow: none;
 }
 
+@media (max-width : 400px) {
+  #Submit_buttons{
+    display: flex;
+  }
+  
+}
 
 
 
