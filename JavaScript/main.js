@@ -1,5 +1,5 @@
-typeof Notification !== "undefined";
-let permission = Notification.requestPermission();
+// typeof Notification !== "undefined";
+// let permission = Notification.requestPermission();
 
 // const Server2 = Server + "/chat";
 var socket = io(Server);
