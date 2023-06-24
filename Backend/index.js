@@ -382,7 +382,7 @@ const { url } = require("inspector");
 
 const client = new MongoClient(
   // "mongodb+srv://aeromodelling-signup:Shivam114@cluster0.skf6mst.mongodb.net/auto-mate?retryWrites=true&w=majority"
-  "mongodb+srv://AutoMate:Shivam114@automate0.dpqij85.mongodb.net/"
+  "mongodb+srv://automate:Shivam114@automate.ptylkes.mongodb.net/"
 );
 
 const botName = "AutoMate ChatBot";
@@ -643,8 +643,8 @@ io.on("connection", (socket) => {
 
 // const webpush = require('web-push');
 
-const publicVapidKey = BH7BGt7khO7IyIS1ddZx-OtYcjuCPPYBdANIpmbCEDulZDmlMZa01BO3xPJjvzCxacG2UMSPWe5L80ktFhOcVPc;
-const privateVapidKey = kElpOWwv8063a4NReUFpwDFqfLdfPOL-EwW63VlvODk ;
+const publicVapidKey = "BH7BGt7khO7IyIS1ddZx-OtYcjuCPPYBdANIpmbCEDulZDmlMZa01BO3xPJjvzCxacG2UMSPWe5L80ktFhOcVPc";
+const privateVapidKey = "kElpOWwv8063a4NReUFpwDFqfLdfPOL-EwW63VlvODk" ;
 
 // //setting vapid keys details
 // webpush.setVapidDetails('mailto:mercymeave@section.com', publicVapidKey,privateVapidKey);
@@ -655,7 +655,9 @@ const privateVapidKey = kElpOWwv8063a4NReUFpwDFqfLdfPOL-EwW63VlvODk ;
 server.listen(3001, async () => {
   // server.listen(3001,"192.168.155.248" || "localhost", async () => {
   try {
-    // await client.connect().then();
+    await client.connect().then(() => {
+      console.log("Connected to server")
+    });
     collection = client.db("auto-mate").collection("chats");
     console.log("Listening on port :", server.address().port);
   } catch (e) {
