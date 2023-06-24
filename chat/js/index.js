@@ -220,3 +220,7 @@ function noti(txt) {
   var body = txt;
   var notification = new Notification(title, { body, icon });
 }
+
+function url() {
+  window.location.href = "../index.html"
+}

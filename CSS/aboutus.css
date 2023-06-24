@@ -1,7 +1,10 @@
 #about{
     font-size: 15px;
-    font-family: cursive;
+    font-family: 'Lovelo Line Bold';
+  src: url('../assets/fonts/Lovelo_Line_Bold.otf');
+    
 }
+
 /*body {
 	margin: 60px;
 	display: grid;
@@ -45,9 +48,10 @@
 } */
 
 .team_box{
-    overflow-y: auto;
-    display: flex;
+    /* overflow-y: auto; */
+    display: grid;
     flex-direction: row;
+    justify-content: center;
 }
 
 li{
@@ -87,7 +91,6 @@ hr{
     background-color:rgba(240, 248, 255, 0.749);
     box-shadow: 5px 5px 5px white;
     border-radius: 0.7rem;
-    margin-left: 20px;
     margin-bottom: 20px;
 }
 .fa-github,.fa-envelope{

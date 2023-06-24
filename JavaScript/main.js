@@ -1,5 +1,5 @@
-typeof Notification !== "undefined";
-let permission = Notification.requestPermission();
+// typeof Notification !== "undefined";
+// let permission = Notification.requestPermission();
 
 // const Server2 = Server + "/chat";
 var socket = io(Server);
@@ -126,7 +126,7 @@ socket.on("receive_message", (message) => {
   var mate = document.getElementById("Matebox");
   mate.innerHTML = "";
   if (message.length == 0) {
-    mate.innerHTML += "no one is available";
+    mate.innerHTML += "No one is available";
   } else {
     for (var i = 0; i < message.length; i++) {
 
@@ -179,7 +179,7 @@ function checkCookie() {
         </div> `;
     // var button = document.getElementById("signinButton");
     // button.innerHTML += `<button id="logout" onclick="logout()">Logout</button>`;
-    button2.innerHTML += `<button id="submit" onclick="submitData()">Submit</button>`;
+    button2.innerHTML += `<button id="submit" onclick="submitData()">New Auto</button>`;
   } else {
     var nav = document.getElementById("tophead");
     nav.innerHTML += `<button id="signinButton" onclick="login()">Login</button> `;
