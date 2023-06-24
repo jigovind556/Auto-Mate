@@ -13,5 +13,8 @@
     "request": "^2.88.2",
     "socket.io": "^4.5.4",
     "web-push": "^3.5.0"
+  },
+  "scripts": {
+    "test":"node ./index.js"
   }
 }

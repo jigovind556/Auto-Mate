@@ -8,25 +8,62 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 const moment = require("moment");
-const request = require('request');
+const request = require("request");
 
 const db = mysql.createConnection({
-  user: "root",
-  host: "automate.cs0gg5mbtn2b.ap-south-1.rds.amazonaws.com",
+  user: "u798037052_ux1234",
+  host: "89.117.157.1",
   password: "Shivam114",
-  database: "auto_mate",
+  database: "u798037052_ux1234",
   multipleStatements: true,
 });
+// const db = mysql.createConnection({
+// user: "root",
+// host: "automate.cs0gg5mbtn2b.ap-south-1.rds.amazonaws.com",
+// password: "Shivam114",
+// database: "auto_mate",
+// multipleStatements: true,
+// });
+// const db = mysql.createConnection({
+//   user: "root",
+//   host: "postgres://root:BK5mndVfVQmJlEqCsmyx6EITPxp9cdg6@dpg-cgrnuio2qv2dcb8lik00-a.oregon-postgres.render.com/automate",
+//   password: "BK5mndVfVQmJlEqCsmyx6EITPxp9cdg6",
+//   database: "automate",
+//   multipleStatements: true,
+// });
+// const db = mysql.createConnection({
+//   user: "root",
+//   host: "localhost",
+//   password: "1989",
+//   database: "auto_mate",
+//   multipleStatements: true,
+// });
+// const db = mysql.createConnection({
+//   user: "root",
+//   host: "localhost",
+//   password: "Shivam@114",
+//   database: "nssnitkk_AutoMate",
+//   multipleStatements: true,
+// });
+// const db = mysql.createConnection({
+//   user: "rumsszlknvdpakjgr",
+//   host: "b3upv4irus5pfzr3yygu-mysql.services.clever-cloud.com",
+//   password: "KUVrvCmkrUCqopSy3jM7",
+//   database: "b3upv4irus5pfzr3yygu",
+//   multipleStatements: true,
+// });
 
 // to get user info for signup page
-app.post("/getUser",async (req, res) => {
+// to get user info for signup page
+app.post("/getUser", async (req, res) => {
   try {
     var email = req.body.email;
 
     console.log(email);
     db.query("select * from user where email =?;", [email], (err, result) => {
       if (err) {
-        console.log(err.sqlMessage);
+        console.log("error from getuser :" + err);
+        // console.log(err.sqlMessage);
         res.status(102).send(new Error(err.sqlMessage));
       } else {
         console.log(result);
@@ -40,7 +77,7 @@ app.post("/getUser",async (req, res) => {
 });
 
 // to get the user info for account page
-app.post("/getcred",async (req, res) => {
+app.post("/getcred", async (req, res) => {
   try {
     var email = req.body.email;
 
@@ -65,7 +102,7 @@ app.post("/getcred",async (req, res) => {
 });
 
 //this function is to create account
-app.post("/createuser",async (req, res) => {
+app.post("/createuser", async (req, res) => {
   try {
     var name = req.body.name;
     var Email = req.body.Email;
@@ -91,7 +128,7 @@ app.post("/createuser",async (req, res) => {
 });
 
 // the function to change password
-app.post("/changepwd",async (req, res) => {
+app.post("/changepwd", async (req, res) => {
   try {
     var email = req.body.email;
     var OldPwd = req.body.OldPwd;
@@ -140,11 +177,41 @@ app.post("/updtuser", async (req, res) => {
     var email = req.body.email;
     var name = req.body.name;
     var Mob = req.body.Mob;
-    var f1= true,f2=true;
-    console.log(f1,f2);
-    if (name != "" && Mob=="") {
+    var f1 = true,
+      f2 = true;
+    console.log(f1, f2);
+    if (name != "" && Mob == "") {
       db.query(
-        `update user set name=? where Email=?;`,[name,email],
+        `update user set name=? where Email=?;`,
+        [name, email],
+        (err, result) => {
+          if (err) {
+            console.log(err.sqlMessage);
+            res.status(102).send(new Error(err.sqlMessage));
+          } else {
+            console.log(true);
+            res.send("success");
+          }
+        }
+      );
+    } else if (name == "" && Mob != "") {
+      db.query(
+        `update user set Mobile_no=? where Email=?;`,
+        [Mob, email],
+        (err, result) => {
+          if (err) {
+            console.log(err.sqlMessage);
+            res.status(102).send(new Error(err.sqlMessage));
+          } else {
+            console.log(true);
+            res.send("success");
+          }
+        }
+      );
+    } else if (name != "" && Mob != "") {
+      db.query(
+        `update user set name=? ,Mobile_no=? where Email=?;`,
+        [name, Mob, email],
         (err, result) => {
           if (err) {
             console.log(err.sqlMessage);
@@ -156,36 +223,6 @@ app.post("/updtuser", async (req, res) => {
         }
       );
     }
-    
-    else if(name == "" && Mob!=""){
-      db.query(
-        `update user set Mobile_no=? where Email=?;`,[Mob,email],
-        (err, result) => {
-          if (err) {
-            console.log(err.sqlMessage);
-            res.status(102).send(new Error(err.sqlMessage));
-          } else {
-            console.log(true);
-            res.send("success");
-          }
-        }
-      );
-    }
-    else if(name!= "" && Mob != ""){
-      db.query(
-        `update user set name=? ,Mobile_no=? where Email=?;`,[name,Mob,email],
-        (err, result) => {
-          if (err) {
-            console.log(err.sqlMessage);
-            res.status(102).send(new Error(err.sqlMessage));
-          } else {
-            console.log(true);
-            res.send("success");
-          }
-        }
-      );
-    }
-   
   } catch (error) {
     res.status(102).send(new Error(error));
   }
@@ -226,7 +263,8 @@ app.post("/thistory", async (req, res) => {
       from chatroom cr2 where
       cr2.travel_time>? and cr2.date=? )
       order by date desc ,travel_Time desc;`,
-      [email,dat,tim,dat],(err, result) => {
+      [email, dat, tim, dat],
+      (err, result) => {
         if (err) {
           console.log(err.sqlMessage);
           res.status(102).send(new Error(err.sqlMessage));
@@ -256,7 +294,8 @@ app.post("/activechat", async (req, res) => {
       from chatroom cr2 where
       cr2.travel_time<SUBTIME(?, 003000) and cr2.date=? )
       order by date asc ,travel_Time asc;`,
-      [email,dat,tim,dat],(err, result) => {
+      [email, dat, tim, dat],
+      (err, result) => {
         if (err) {
           console.log(err.sqlMessage);
           res.status(102).send(new Error(err.sqlMessage));
@@ -275,20 +314,22 @@ app.post("/deletechat", async (req, res) => {
   try {
     console.log(req.body);
     var email = req.body.email;
-    var chatid= req.body.chatid;
+    var chatid = req.body.chatid;
     var pwy = req.body.pwy;
     db.query(
       `select No_of_person from chatroom where chatRoom_id=?;`,
-      [chatid],(err, result) => {
+      [chatid],
+      (err, result) => {
         if (err) {
           console.log(err.sqlMessage);
           res.status(102).send(new Error(err.sqlMessage));
         } else {
-          console.log(result[0].No_of_person==pwy);
-          if(result[0].No_of_person==pwy){
+          console.log(result[0].No_of_person == pwy);
+          if (result[0].No_of_person == pwy) {
             db.query(
               `delete from chatroom where chatRoom_id=?;`,
-              [chatid],(err, result) => {
+              [chatid],
+              (err, result) => {
                 if (err) {
                   console.log(err.sqlMessage);
                   res.status(102).send(new Error(err.sqlMessage));
@@ -297,12 +338,12 @@ app.post("/deletechat", async (req, res) => {
                 }
               }
             );
-          }
-          else{
+          } else {
             db.query(
               `update chatroom set No_of_person = No_of_person-? where chatroom_id=?;
               delete from chatgroup where email=? and chatroom_id=?;`,
-              [pwy,chatid,email,chatid],(err, result) => {
+              [pwy, chatid, email, chatid],
+              (err, result) => {
                 if (err) {
                   console.log(err.sqlMessage);
                   res.status(102).send(new Error(err.sqlMessage));
@@ -312,7 +353,6 @@ app.post("/deletechat", async (req, res) => {
               }
             );
           }
-          
         }
       }
     );
@@ -341,7 +381,8 @@ const { MongoClient } = require("mongodb");
 const { url } = require("inspector");
 
 const client = new MongoClient(
-  "mongodb+srv://aeromodelling-signup:Shivam114@cluster0.skf6mst.mongodb.net/auto-mate?retryWrites=true&w=majority"
+  // "mongodb+srv://aeromodelling-signup:Shivam114@cluster0.skf6mst.mongodb.net/auto-mate?retryWrites=true&w=majority"
+  "mongodb+srv://AutoMate:Shivam114@automate0.dpqij85.mongodb.net/"
 );
 
 const botName = "AutoMate ChatBot";
@@ -354,11 +395,13 @@ const server = http.createServer(app);
 var io = require("socket.io")(server, {
   cors: {
     origin: [
+      "http://localhost:3001/",
       "http://127.0.0.1:5501",
+      "http://127.0.0.1:3001",
       "http://127.0.0.1:5502",
       "https://jigovind556.github.io",
       "http://127.0.0.1:3001",
-      "http://43.205.206.153:3001"
+      "http://43.205.206.153:3001",
     ],
   },
 });
@@ -372,7 +415,8 @@ var io = require("socket.io")(server, {
 // const PORT = 3000 || process.env.port;
 
 //Set static folder
-app.use(express.static(path.join(__dirname, "../"), async (req, res) => {
+app.use(
+  express.static(path.join(__dirname, "../"), async (req, res) => {
     try {
       let result = await collection.findOne({ room_name: req.query.room_name });
       res.send(result);
@@ -382,10 +426,9 @@ app.use(express.static(path.join(__dirname, "../"), async (req, res) => {
   })
 );
 
-var Filter = require('bad-words'),
-filter = new Filter();
-filter.addWords('bsdk', 'gandu', 'randi');
-
+var Filter = require("bad-words"),
+  filter = new Filter();
+filter.addWords("bsdk", "gandu", "randi");
 
 //Run when client connect
 io.on("connection", (socket) => {
@@ -395,15 +438,17 @@ io.on("connection", (socket) => {
       let result = await collection.findOne({ room_name: room });
 
       if (!result) {
-        await collection.insertOne({
-          DateTime: new Date(),
-          room_name: room,
-          messages: [],
-          username: username,
-        },
-        {
-          expireAfterSeconds: 3600
-        });
+        await collection.insertOne(
+          {
+            DateTime: new Date(),
+            room_name: room,
+            messages: [],
+            username: username,
+          },
+          {
+            expireAfterSeconds: 3600,
+          }
+        );
       }
 
       const user = userJoin(socket.id, username, room);
@@ -412,8 +457,8 @@ io.on("connection", (socket) => {
 
       //Finding previous history
       collection.findOne({ room_name: room }).then((msg) => {
-        // filter.clean(msg)
-        socket.emit("output-message", formatMessage(user.username,msg));
+        // filter.clean(msg)nop_with_you
+        socket.emit("output-message", formatMessage(user.username, msg));
       });
 
       //Welcome connect user
@@ -459,7 +504,7 @@ io.on("connection", (socket) => {
       //Listen for  chatMessage
       socket.on("chatMessage", ({ msg, username }) => {
         const time = moment().utcOffset("+05:30").format("h:mm a");
-        msg = filter.clean(msg)
+        msg = filter.clean(msg);
         collection.updateOne(
           { room_name: socket.activeRoom },
           {
@@ -469,8 +514,8 @@ io.on("connection", (socket) => {
           },
           {
             $push: {
-              DateTime: new Date()
-            }
+              DateTime: new Date(),
+            },
           }
         );
 
@@ -479,7 +524,8 @@ io.on("connection", (socket) => {
         io.to(user.room).emit("message", formatMessage(user.username, msg));
 
         //pass the object into sendNotification fucntion and catch any error
-        webpush.sendNotification(subscription, payload).catch(err=> console.error(err));
+        // webpush Notification
+        // webpush.sendNotification(subscription, payload).catch(err=> console.error(err));
       });
     } catch (e) {
       console.error(e);
@@ -488,13 +534,13 @@ io.on("connection", (socket) => {
 
   console.log(socket.id + " for io2");
 
-  socket.on("check_mate", async ({ To, From, Date, Time, Nop}) => {
+  socket.on("check_mate", async ({ To, From, Date, Time, Nop }) => {
     console.log(To, From, Time);
     db.query(
       `select room_name , travel_time ,chatRoom_id ,No_of_person from chatroom 
       where  dest=? and jstart=? and No_of_person<=? and
       date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
-      [To, From,Nop, Date, Time, Time],
+      [To, From, Nop, Date, Time, Time],
       (err, result) => {
         if (err) {
           console.log(err.sqlMessage);
@@ -509,9 +555,9 @@ io.on("connection", (socket) => {
 
   socket.on(
     "submit_new_data",
-    async ({ Email, To, Date, From, Time,Nop, chatid }) => {
+    async ({ Email, To, Date, From, Time, Nop, chatid }) => {
       try {
-        var nop2=5-Nop;
+        var nop2 = 5 - Nop;
         console.log(chatid);
         // var chatid="1245624";
         db.query(
@@ -521,7 +567,7 @@ io.on("connection", (socket) => {
         (select name from user where Email=?),
       ?,?,?);
       insert into chatgroup (Email, chatRoom_id,nop_with_you) values (?,?,?); `,
-          [chatid, To, From, Email, Time, Date,Nop, Email, chatid,Nop],
+          [chatid, To, From, Email, Time, Date, Nop, Email, chatid, Nop],
           (err, result) => {
             if (err) {
               console.log(err.sqlMessage);
@@ -530,10 +576,10 @@ io.on("connection", (socket) => {
               console.log(result);
 
               db.query(
-               ` select room_name , travel_time ,chatRoom_id ,No_of_person from chatroom 
+                ` select room_name , travel_time ,chatRoom_id ,No_of_person from chatroom 
                 where  dest=? and jstart=? and No_of_person<=? and
                 date=? AND travel_time between SUBTIME(?, 003000) and ADDTIME(?, 003000);`,
-                [To, From,nop2, Date, Time, Time],
+                [To, From, nop2, Date, Time, Time],
                 (err, result) => {
                   if (err) {
                     console.log(err.sqlMessage);
@@ -554,59 +600,62 @@ io.on("connection", (socket) => {
     }
   );
 
-  socket.on("joinchat", async ({ Email, To, Date, From, Time,Nop, chatid }) => {
-    console.log("Email " + Email + " chatid " + chatid);
-    var nop2=5-Nop;
-    db.query(
-      `select * from chatgroup where Email=? and chatRoom_id=? ;`,
-      [Email, chatid],
-      (err, result) => {
-        if (err) {
-          console.log(err.sqlMessage);
-          socket.emit("error", err.sqlMessage);
-        } else {
-          if (result[0]) {
-            socket.emit("createChat", chatid);
+  socket.on(
+    "joinchat",
+    async ({ Email, To, Date, From, Time, Nop, chatid }) => {
+      console.log("Email " + Email + " chatid " + chatid);
+      var nop2 = 5 - Nop;
+      db.query(
+        `select * from chatgroup where Email=? and chatRoom_id=? ;`,
+        [Email, chatid],
+        (err, result) => {
+          if (err) {
+            console.log(err.sqlMessage);
+            socket.emit("error", err.sqlMessage);
           } else {
-            db.query(
-              `
+            if (result[0]) {
+              socket.emit("createChat", chatid);
+            } else {
+              db.query(
+                `
               update chatroom set No_of_person = No_of_person+? where chatroom_id=?;
               insert into chatgroup (Email, chatRoom_id,nop_with_you) values (?,?,?);`,
-              [Nop,chatid, Email, chatid,Nop],
-              (err, result) => {
-                if (err) {
-                  console.log(err.sqlMessage);
-                  socket.emit("error", err.sqlMessage);
-                } else {
-                  console.log(result);
-                  socket.emit("createChat", chatid);
+                [Nop, chatid, Email, chatid, Nop],
+                (err, result) => {
+                  if (err) {
+                    console.log(err.sqlMessage);
+                    socket.emit("error", err.sqlMessage);
+                  } else {
+                    console.log(result);
+                    socket.emit("createChat", chatid);
+                  }
                 }
-              }
-            );
+              );
+            }
           }
         }
-      }
-    );
-  });
+      );
+    }
+  );
 });
 
-// Web Push Notification 
+// Web Push Notification
 
-const webpush = require('web-push');
+// const webpush = require('web-push');
 
-const publicVapidKey = BH7BGt7khO7IyIS1ddZx-OtYcjuCPPYBdANIpmbCEDulZDmlMZa01BO3xPJjvzCxacG2UMSPWe5L80ktFhOcVPc;
-const privateVapidKey = kElpOWwv8063a4NReUFpwDFqfLdfPOL-EwW63VlvODk ;
+// const publicVapidKey = BH7BGt7khO7IyIS1ddZx-OtYcjuCPPYBdANIpmbCEDulZDmlMZa01BO3xPJjvzCxacG2UMSPWe5L80ktFhOcVPc;
+// const privateVapidKey = kElpOWwv8063a4NReUFpwDFqfLdfPOL-EwW63VlvODk ;
 
-//setting vapid keys details
-webpush.setVapidDetails('mailto:mercymeave@section.com', publicVapidKey,privateVapidKey);
-
-
+// //setting vapid keys details
+// webpush.setVapidDetails('mailto:mercymeave@section.com', publicVapidKey,privateVapidKey);
 
 //
 
+// server.listen(3001,"172.16.56.54" || "localhost", async () => {
 server.listen(3001, async () => {
+  // server.listen(3001,"192.168.155.248" || "localhost", async () => {
   try {
-    await client.connect().then();
+    // await client.connect().then();
     collection = client.db("auto-mate").collection("chats");
     console.log("Listening on port :", server.address().port);
   } catch (e) {
