@@ -10,6 +10,7 @@
     "mysql": "^2.18.1",
     "node": "^19.4.0",
     "nodemon": "^2.0.20",
+    "openweather-apis": "^4.4.2",
     "request": "^2.88.2",
     "socket.io": "^4.5.4",
     "web-push": "^3.5.0"

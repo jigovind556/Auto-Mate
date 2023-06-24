@@ -594,8 +594,8 @@ io.on("connection", (socket) => {
 
 const webpush = require('web-push');
 
-const publicVapidKey = BH7BGt7khO7IyIS1ddZx-OtYcjuCPPYBdANIpmbCEDulZDmlMZa01BO3xPJjvzCxacG2UMSPWe5L80ktFhOcVPc;
-const privateVapidKey = kElpOWwv8063a4NReUFpwDFqfLdfPOL-EwW63VlvODk ;
+const publicVapidKey = "BH7BGt7khO7IyIS1ddZx-OtYcjuCPPYBdANIpmbCEDulZDmlMZa01BO3xPJjvzCxacG2UMSPWe5L80ktFhOcVPc";
+const privateVapidKey = "kElpOWwv8063a4NReUFpwDFqfLdfPOL-EwW63VlvODk" ;
 
 //setting vapid keys details
 webpush.setVapidDetails('mailto:mercymeave@section.com', publicVapidKey,privateVapidKey);
