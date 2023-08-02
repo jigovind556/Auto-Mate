@@ -7,8 +7,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
-const moment = require("moment");
+const moment = require("moment");cors
 const request = require("request");
+
+const { otpMail } = require('./email.js');
 
 const db = mysql.createConnection({
   user: "u798037052_ux1234",
@@ -100,6 +102,19 @@ app.post("/getcred", async (req, res) => {
     res.status(102).send(new Error("data should not be blank"));
   }
 });
+
+//sending otp
+app.post("/sendotp", async (req, res) => {
+  try {
+    let otp = await otpMail(req.body.email);
+    otp = otp.toString();
+    res.send(otp);
+  }
+  catch(err){
+    console.log(err);
+  }
+
+})
 
 //this function is to create account
 app.post("/createuser", async (req, res) => {
@@ -420,7 +435,7 @@ app.use(
     try {
       let result = await collection.findOne({ room_name: req.query.room_name });
       res.send(result);
-    } catch (e) {
+    } catch (e) { 
       res.status(500).send({ message: e.message });
     }
   })
