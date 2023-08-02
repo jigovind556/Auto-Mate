@@ -6,5 +6,5 @@
 // const Server = "http://192.168.155.248:3001";
 
 
-const Server = "https://54.208.193.216:3001";// aws server 
+const Server = "http://54.208.193.216:3001";// aws server 
 
