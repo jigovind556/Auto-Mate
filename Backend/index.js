@@ -409,15 +409,17 @@ const server = http.createServer(app);
 // const io = socketio(server);
 var io = require("socket.io")(server, {
   cors: {
-    origin: [
-      "http://localhost:3001/",
-      "http://127.0.0.1:5501",
-      "http://127.0.0.1:3001",
-      "http://127.0.0.1:5502",
-      "https://jigovind556.github.io",
-      "http://127.0.0.1:3001",
-      "http://43.205.206.153:3001",
-    ],
+    origin: "*",
+    // [
+    //   "http://localhost:3001/",
+    //   "http://127.0.0.1:5501",
+    //   "http://127.0.0.1:3001",
+    //   "http://127.0.0.1:5502",
+    //   "https://jigovind556.github.io",
+    //   "http://127.0.0.1:3001",
+    //   "http://43.205.206.153:3001",
+    //   "https://54.208.193.216",
+    // ],
   },
 });
 
